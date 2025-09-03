@@ -346,7 +346,7 @@ volumeMounts: []
 nodeSelector: {}
 
 # @schema
-# type: object
+# type: array
 # required: false
 # @schema
 tolerations: []

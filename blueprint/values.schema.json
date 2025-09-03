@@ -286,7 +286,7 @@
     "tolerations": {
       "items": {},
       "title": "tolerations",
-      "type": "object"
+      "type": "array"
     },
     "volumeMounts": {
       "description": "Additional volumeMounts on the output Deployment definition.",
