@@ -1,5 +1,5 @@
 apiVersion: v2
-name: admin-page
+name: portal-admin-page
 description: A Blueprint for Krateo Admin Page
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -20,8 +20,8 @@ version: CHART_VERSION
 home: https://krateo.io
 icon: "https://github.com/krateoplatformops/krateo/blob/main/docs/media/logo.svg"
 keywords:
-  - admin-page
+  - portal
 sources:
-  - https://github.com/krateoplatformops-blueprints/admin-page
+  - https://github.com/krateoplatformops-blueprints/portal-admin-page
 annotations:
   krateoSupportedVersion: ">= 2.5.1"
