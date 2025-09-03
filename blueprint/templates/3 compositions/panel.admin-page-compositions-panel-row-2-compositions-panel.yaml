@@ -1,0 +1,33 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-compositions-panel-row-2-compositions-panel
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Compositions Instantiated
+    items:
+      - resourceRefId: panel-namespaces
+      - resourceRefId: table
+      - resourceRefId: panel-compositions
+  resourcesRefs:
+    items:
+    - id:  panel-namespaces
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-panel-row-2f-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-panel-row-2-compositions-panel-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+    - id:  panel-compositions
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-panel-row-2c-go-to-templates-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET

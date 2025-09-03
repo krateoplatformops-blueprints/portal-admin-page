@@ -1,0 +1,26 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-row-1-users-panel
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Basic Users and Groups
+    items:
+      - resourceRefId: panel-users
+      - resourceRefId: table
+  resourcesRefs:
+    items:
+    - id:  panel-users
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-row-1f-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-row-1-users-panel-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

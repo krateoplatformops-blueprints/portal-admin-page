@@ -1,0 +1,66 @@
+kind: TabList
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-tablist
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    items:
+      - label: Krateo
+        resourceRefId: admin-page-krateo-panel
+      - label: Blueprints
+        resourceRefId: admin-page-composition-definitions-panel
+      - label: Compositions
+        resourceRefId: admin-page-compositions-panel
+      - label: Users
+        resourceRefId: admin-page-users-panel
+      # - label: Blueprints
+      #   resourceRefId: admin-page-blueprints-panel
+      - label: FinOps
+        resourceRefId: admin-page-finops-panel
+      # - label: RESTActions
+      #   resourceRefId: admin-page-restactions-panel
+  resourcesRefs:
+    items:
+    - id: admin-page-krateo-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    - id: admin-page-composition-definitions-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    - id: admin-page-compositions-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    - id: admin-page-users-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    # - id: admin-page-blueprints-panel
+    #   apiVersion: widgets.templates.krateo.io/v1beta1
+    #   name: admin-page-blueprints-panel
+    #   namespace: {{ .Release.Namespace }}
+    #   resource: panels
+    #   verb: GET
+    - id: admin-page-finops-panel
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET
+    # - id: admin-page-restactions-panel
+    #   apiVersion: widgets.templates.krateo.io/v1beta1
+    #   name: admin-page-restactions-panel
+    #   namespace: {{ .Release.Namespace }}
+    #   resource: panels
+    #   verb: GET

@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-row-1f-filter-button
+spec:
+  widgetData:
+    label: Filter Users
+    size: middle
+    icon: fa-solid fa-filter
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: filter
+          type: openDrawer
+          title: Filter Users
+          size: default
+  resourcesRefs:
+    items:
+    - id: filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-row-1f-filter-button-filters
+      namespace: {{ .Release.Namespace }}
+      resource: filters
+      verb: GET

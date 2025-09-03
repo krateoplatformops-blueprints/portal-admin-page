@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-panel-row-2-upload-panel-button
+spec:
+  widgetData:
+    label: Upload Notebook
+    icon: fa-solid fa-cloud-arrow-up
+    size: large
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: upload
+          type: openDrawer
+          title: Upload Notebook
+          size: large
+  resourcesRefs:
+    items:
+    - id: upload
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-row-2-upload-panel-button-form
+      namespace: {{ .Release.Namespace }}
+      resource: forms
+      verb: GET

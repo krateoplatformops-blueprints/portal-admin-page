@@ -1,0 +1,91 @@
+kind: Form
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-column-c-create-user-button-form
+spec:
+  widgetData:
+    submitActionId: namespace
+    stringSchema: |
+          {
+            "properties": {
+              "metadata": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "default": "{{ .Release.Namespace }}"
+                  }
+                },
+                "type": "object",
+                "required": [
+                  "name",
+                  "namespace"
+                ]
+              }, 
+              "avatarURL": {
+                  "description": "AvatarURL is the user avatar image url.",
+                  "type": "string"
+              },
+              "displayName": {
+                  "description": "DisplayName is the user full name.",
+                  "type": "string"
+              },
+              "groups": {
+                  "description": "Groups the groups user belongs to.",
+                  "items": {
+                      "type": "string"
+                  },
+                  "type": "array"
+              },
+              "passwordRef": {
+                "description": "Password is the reference to the secret with the user password.",
+                "properties": {
+                    "key": {
+                        "description": "The key to select.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "Name of the referenced object.",
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "description": "Namespace of the referenced object.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "key",
+                    "name",
+                    "namespace"
+                ],
+                "type": "object"
+              }
+            },
+            "required": [
+                "avatarURL",
+                "displayName",
+                "passwordRef"
+            ],
+            "type": "object"
+          }
+    actions:
+      rest:
+        - id: namespace
+          resourceRefId: resource-ref-1
+          type: rest
+          payloadKey: spec
+          payloadToOverride:
+          - name: metadata.name
+            value: ${ metadata.name }
+          - name: metadata.namespace
+            value: ${ metadata.namespace }
+          headers:
+          - "content-type: application/json"
+  resourcesRefs:
+    items:
+    - id: resource-ref-1
+      apiVersion: basic.authn.krateo.io/v1alpha1
+      resource: users
+      verb: POST

@@ -1,0 +1,26 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-panel-row-2-logs-panel
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Pods and Logs
+    items:
+      - resourceRefId: filter
+      - resourceRefId: table
+  resourcesRefs:
+    items:
+    - id:  filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-row-2f-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-row-2-logs-panel-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

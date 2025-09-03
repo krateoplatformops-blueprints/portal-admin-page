@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: {{ include "proxylog.fullname" . }}-endpoint
+stringData:
+  server-url: http://{{ include "proxylog.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}

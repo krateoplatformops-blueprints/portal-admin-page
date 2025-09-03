@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-row-2c-create-composition-definition-button
+spec:
+  widgetData:
+    label: Install Blueprint
+    size: large
+    icon: fa-solid fa-plus
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: create
+          type: openDrawer
+          title: Install blueprint
+          size: large
+  resourcesRefs:
+    items:
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-row-2c-create-composition-definition-button-form
+      namespace: {{ .Release.Namespace }}
+      resource: forms
+      verb: GET
