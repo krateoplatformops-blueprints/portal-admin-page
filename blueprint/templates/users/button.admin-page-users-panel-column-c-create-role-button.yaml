@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-column-c-create-role-button
 spec:
   widgetData:
+    allowedResources:
+    - forms
     label: Create Role
     size: large
     icon: fa-solid fa-file-contract

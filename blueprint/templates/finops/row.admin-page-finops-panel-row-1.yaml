@@ -4,6 +4,8 @@ metadata:
   name: admin-page-finops-panel-row-1
 spec:
   widgetData:
+    allowedResources:
+    - panels
     items:
       - resourceRefId: panel-notebooks
   resourcesRefs:

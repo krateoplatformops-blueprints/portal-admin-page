@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-row-3-create-button
 spec:
   widgetData:
+    allowedResources:
+    - columns
     label: Create
     size: large
     icon: fa-solid fa-plus

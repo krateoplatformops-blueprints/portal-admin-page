@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-row-2f-filter-button
 spec:
   widgetData:
+    allowedResources:
+    - filters
     label: Filter Permissions
     size: middle
     icon: fa-solid fa-filter

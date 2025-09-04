@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-column-c-create-role-button-form
 spec:
   widgetData:
+    allowedResources:
+    - roles
     submitActionId: role
     stringSchema: |
         {

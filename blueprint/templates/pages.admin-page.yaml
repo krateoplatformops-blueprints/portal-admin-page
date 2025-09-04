@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
+    allowedResources:
+    - tablists
     items:
       - resourceRefId: admin-page-tablist
   resourcesRefs:

@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
+    allowedResources:
+    - rows
     actions: {}
     title: Local Users, Groups, and Permissions
     items:

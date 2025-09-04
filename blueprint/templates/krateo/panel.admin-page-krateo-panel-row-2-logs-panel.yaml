@@ -5,6 +5,9 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
+    allowedResources:
+    - buttons
+    - tables
     actions: {}
     title: Pods and Logs
     items:

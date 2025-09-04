@@ -4,6 +4,8 @@ metadata:
   name: admin-page-composition-definitions-panel-row-2c-create-composition-definition-button
 spec:
   widgetData:
+    allowedResources:
+    - forms
     label: Install Blueprint
     size: large
     icon: fa-solid fa-plus

@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-column-c-create-user-button
 spec:
   widgetData:
+    allowedResources:
+    - forms
     label: Create User
     size: large
     icon: fa-solid fa-user

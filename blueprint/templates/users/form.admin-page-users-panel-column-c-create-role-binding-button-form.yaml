@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-column-c-create-role-binding-button-form
 spec:
   widgetData:
+    allowedResources:
+    - rolebindings
     submitActionId: role
     stringSchema: |
         {
@@ -90,5 +92,5 @@ spec:
     items:
     - id: resource-ref-1
       apiVersion: rbac.authorization.k8s.io/v1
-      resource: roles
+      resource: rolebindings
       verb: POST

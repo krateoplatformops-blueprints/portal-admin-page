@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
+    allowedResources:
+    - pages
     resourceRefId: admin-page
     label: Admin
     icon: fa-solid fa-gears

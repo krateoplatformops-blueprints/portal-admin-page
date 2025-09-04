@@ -4,6 +4,8 @@ metadata:
   name: admin-page-composition-definitions-panel-row-2c-create-composition-definition-button-form
 spec:
   widgetData:
+    allowedResources:
+    - compositiondefinitions
     submitActionId: compositiondefinition
     stringSchema: |
       {

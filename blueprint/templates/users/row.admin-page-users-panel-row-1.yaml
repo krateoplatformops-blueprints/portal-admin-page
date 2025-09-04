@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-row-1
 spec:
   widgetData:
+    allowedResources:
+    - panels
     items:
       - resourceRefId: panel-users
   resourcesRefs:

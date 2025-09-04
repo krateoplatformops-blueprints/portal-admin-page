@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
+    allowedResources:
+    - panels
     items:
       - label: Krateo
         resourceRefId: admin-page-krateo-panel

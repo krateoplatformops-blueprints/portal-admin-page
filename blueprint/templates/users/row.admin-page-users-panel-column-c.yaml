@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-column-c
 spec:
   widgetData:
+    allowedResources:
+    - buttons
     items:
       - resourceRefId: create-password
       - resourceRefId: create-user

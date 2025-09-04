@@ -4,6 +4,8 @@ metadata:
   name: admin-page-users-panel-row-3
 spec:
   widgetData:
+    allowedResources:
+    - buttons
     items:
       - resourceRefId: panel-permissions
   resourcesRefs:
