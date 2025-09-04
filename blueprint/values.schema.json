@@ -162,11 +162,6 @@
       "title": "ingress",
       "type": "object"
     },
-    "krateoNamespace": {
-      "default": "krateo-system",
-      "title": "krateoNamespace",
-      "type": "string"
-    },
     "livenessProbe": {
       "additionalProperties": false,
       "description": "This is to setup the liveness and readiness probes more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",
@@ -333,7 +328,6 @@
     }
   },
   "required": [
-    "krateoNamespace",
     "replicaCount",
     "image",
     "service",

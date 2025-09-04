@@ -430,7 +430,7 @@ spec:
                 "verb": "GET",
                 "endpointRef": {
                   "name": "finops-database-handler-endpoint",
-                  "namespace": "{{ .Values.krateoNamespace }}"
+                  "namespace": "{{ .Values.global.krateoNamespace }}"
                 }
               }
             ]

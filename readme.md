@@ -1,3 +1,6 @@
+> [!NOTE]
+> The create function in many of the admin pages does **not** work yet. It will be fixed in a new release soon.
+
 # _Admin Page_ Blueprint
 The Admin Page Blueprint provides a ready-to-use page to monitor Krateo and its resources. This Blueprint includes a Helm chart to help you bootstrap your own Krateo Composable Portal experience.
 
@@ -16,8 +19,9 @@ Install the Blueprint:
 ```sh
 helm install <name> admin-page \
   --repo https://marketplace.krateo.io \
-  --namespace <namespace> \
-  --create-namespace \
+  --namespace <krateo-namespace \
   --version 0.0.1 \
   --wait
 ```
+
+The admin-page **must** be installed in the Krateo Namespace. If you install using Helm, then you must set `.Values.global.krateoNamespace` to the Krateo namespace.

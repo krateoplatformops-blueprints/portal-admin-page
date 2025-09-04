@@ -6,7 +6,7 @@ metadata:
 spec:
   api:
   - name: krateo
-    path: "/apis/krateo.io/v1alpha1/namespaces/{{ .Values.krateoNamespace }}/krateoplatformops/krateo"
+    path: "/apis/krateo.io/v1alpha1/namespaces/{{ .Values.global.krateoNamespace }}/krateoplatformops/krateo"
     filter: >
       .krateo.status.releaseList
       | sort_by(.updated) | reverse
