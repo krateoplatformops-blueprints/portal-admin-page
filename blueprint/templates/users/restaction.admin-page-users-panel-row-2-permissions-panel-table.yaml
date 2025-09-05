@@ -38,8 +38,8 @@ spec:
       (
         (
           (
-            .clusterrolebindings.items as $bindings |
-            .clusterroles.items as $roles |
+            (.clusterrolebindings.items // []) as $bindings |
+            (.clusterroles.items // []) as $roles |
             [
               $bindings[] |
               select(.subjects) |
@@ -66,8 +66,8 @@ spec:
           )
           +
           (
-            .rolebindings.items as $bindings |
-            .roles.items as $roles |
+            (.rolebindings.items // []) as $bindings |
+            (.roles.items // []) as $roles |
             [
               $bindings[] |
               select(.subjects) |
@@ -93,21 +93,21 @@ spec:
             )
           )
         )
-        # integrate lookup + filtering + deduplication
         as $permissions
         |
-        ((.basic | map({(.): true}) | add) as $lookup
-        | $permissions
-        | map(select($lookup[.groupName]))
-        | unique
-        # convert to table-row schema
-        | map([
-            { "valueKey": "groupName", "kind": "jsonSchemaType", "type": "string", "stringValue": .groupName },
-            { "valueKey": "roleName",  "kind": "jsonSchemaType", "type": "string", "stringValue": .roleName },
-            { "valueKey": "scope",     "kind": "jsonSchemaType", "type": "string", "stringValue": .scope },
-            { "valueKey": "resources", "kind": "jsonSchemaType", "type": "string", "stringValue": .resources },
-            { "valueKey": "verbs",     "kind": "jsonSchemaType", "type": "string", "stringValue": .verbs }
-          ])
+        (
+          ((.basic // []) | map({(.): true}) | add) as $lookup
+          | $permissions
+          | map(select($lookup[.groupName]))
+          | unique
+          | map([
+              { "valueKey": "groupName", "kind": "jsonSchemaType", "type": "string", "stringValue": .groupName },
+              { "valueKey": "roleName",  "kind": "jsonSchemaType", "type": "string", "stringValue": .roleName },
+              { "valueKey": "scope",     "kind": "jsonSchemaType", "type": "string", "stringValue": .scope },
+              { "valueKey": "resources", "kind": "jsonSchemaType", "type": "string", "stringValue": .resources },
+              { "valueKey": "verbs",     "kind": "jsonSchemaType", "type": "string", "stringValue": .verbs }
+            ])
         )
       )
     }
+
