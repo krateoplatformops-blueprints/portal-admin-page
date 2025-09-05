@@ -8,6 +8,8 @@ spec:
     name: admin-page-krateo-panel-row-2-logs-panel-table
     namespace: {{ .Release.Namespace }}
   widgetData:
+    allowedResources:
+    - buttons
     prefix: admin-page-logs
     columns:
     - title: Name

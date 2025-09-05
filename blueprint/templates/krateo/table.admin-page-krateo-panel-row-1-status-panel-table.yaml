@@ -8,6 +8,7 @@ spec:
     name: admin-page-krateo-panel-row-1-status-panel-table
     namespace: {{ .Release.Namespace }}
   widgetData:
+    allowedResources: []  
     prefix: admin-page-status
     columns:
     - title: Name

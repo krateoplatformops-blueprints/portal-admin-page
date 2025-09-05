@@ -8,6 +8,7 @@ spec:
     name: admin-page-composition-definitions-panel-row-1-namespaces-panel-table
     namespace: {{ .Release.Namespace }}
   widgetData:
+    allowedResources: []  
     columns:
     - title: Name
       valueKey: name

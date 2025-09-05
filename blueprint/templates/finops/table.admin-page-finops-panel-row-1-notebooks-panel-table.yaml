@@ -8,6 +8,8 @@ spec:
     name: admin-page-finops-panel-row-1-notebooks-panel-table
     namespace: {{ .Release.Namespace }}
   widgetData:
+    allowedResources:
+    - buttons
     prefix: admin-page-finops
     columns:
     - title: Name

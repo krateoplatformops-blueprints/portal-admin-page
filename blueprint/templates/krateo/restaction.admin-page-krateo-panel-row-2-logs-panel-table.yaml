@@ -433,7 +433,7 @@ spec:
                 "path": "/api/v1/namespaces/" + .namespace + "/pods/" + .name + "/log?tailLines=100",
                 "verb": "GET",
                 "endpointRef": {
-                  "name": "admin-page-endpoint",
+                  "name": "{{ include "proxylog.fullname" . }}-endpoint",
                   "namespace": "{{ .Release.Namespace }}"
                 }
               }

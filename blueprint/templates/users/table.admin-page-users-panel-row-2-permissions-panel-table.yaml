@@ -11,6 +11,7 @@ spec:
   - forPath: data
     expression: ${ .data }
   widgetData:
+    allowedResources: []  
     prefix: admin-page-permissions
     pageSize: 20
     data: []
