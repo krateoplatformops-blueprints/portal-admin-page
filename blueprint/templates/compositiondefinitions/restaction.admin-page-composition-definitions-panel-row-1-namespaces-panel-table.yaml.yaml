@@ -1,0 +1,44 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-composition-definitions-panel-row-1-namespaces-panel-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: /api/v1/namespaces
+    continueOnError: true
+  filter: >
+    {
+      list: (
+        (
+          if (.namespaces | type) == "array" then
+            [.namespaces[]?.items[]?]
+          elif (.namespaces | type) == "object" then
+            [.namespaces.items[]?]
+          else
+            []
+          end
+        )
+        | map({
+            name: .metadata.name,
+            date: .metadata.creationTimestamp
+          })
+        | sort_by(.date)
+        | reverse
+        | map([
+            {
+              valueKey: "name",
+              kind: "jsonSchemaType",
+              type: "string",
+              stringValue: .name
+            },
+            {
+              valueKey: "date",
+              kind: "jsonSchemaType",
+              type: "string",
+              stringValue: .date
+            }
+          ])
+      )
+    }

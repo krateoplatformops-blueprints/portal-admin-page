@@ -1,0 +1,338 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "affinity": {
+      "additionalProperties": false,
+      "title": "affinity",
+      "type": "object"
+    },
+    "autoscaling": {
+      "additionalProperties": false,
+      "description": "This section is for setting up autoscaling more information can be found here https://kubernetes.io/docs/concepts/workloads/autoscaling/",
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "maxReplicas": {
+          "default": 100,
+          "title": "maxReplicas",
+          "type": "integer"
+        },
+        "minReplicas": {
+          "default": 1,
+          "title": "minReplicas",
+          "type": "integer"
+        },
+        "targetCPUUtilizationPercentage": {
+          "default": 80,
+          "title": "targetCPUUtilizationPercentage",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "enabled",
+        "minReplicas",
+        "maxReplicas",
+        "targetCPUUtilizationPercentage"
+      ],
+      "title": "autoscaling",
+      "type": "object"
+    },
+    "fullnameOverride": {
+      "default": "",
+      "description": "This is to override the chart name.",
+      "title": "fullnameOverride",
+      "type": "string"
+    },
+    "image": {
+      "additionalProperties": false,
+      "description": "This sets the container image more information can be found here https://kubernetes.io/docs/concepts/containers/images/",
+      "properties": {
+        "pullPolicy": {
+          "default": "Always",
+          "description": "This sets the pull policy for images.",
+          "title": "pullPolicy",
+          "type": "string"
+        },
+        "repository": {
+          "default": "ghcr.io/krateoplatformops/proxylog",
+          "title": "repository",
+          "type": "string"
+        },
+        "tag": {
+          "default": "",
+          "description": "Overrides the image tag whose default is the chart appVersion.",
+          "title": "tag",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "pullPolicy"
+      ],
+      "title": "image",
+      "type": "object"
+    },
+    "imagePullSecrets": {
+      "description": "This is for the secrets for pulling an image from a private repository more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/",
+      "items": {
+        "properties": {
+          "name": {
+            "description": "Secret name.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "title": "imagePullSecrets",
+      "type": "array"
+    },
+    "ingress": {
+      "additionalProperties": false,
+      "description": "This block is for setting up the ingress for more information can be found here https://kubernetes.io/docs/concepts/services-networking/ingress/",
+      "properties": {
+        "annotations": {
+          "additionalProperties": false,
+          "title": "annotations",
+          "type": "object"
+        },
+        "className": {
+          "default": "",
+          "title": "className",
+          "type": "string"
+        },
+        "enabled": {
+          "default": false,
+          "description": "Enable the ingress.",
+          "title": "enabled",
+          "type": "boolean"
+        },
+        "hosts": {
+          "description": "kubernetes.io/ingress.class: nginx\nkubernetes.io/tls-acme: \"true\"",
+          "items": {
+            "properties": {
+              "host": {
+                "type": "string"
+              },
+              "paths": {
+                "items": {
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "pathType": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "title": "hosts",
+          "type": "array"
+        },
+        "tls": {
+          "items": {
+            "properties": {
+              "hosts": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "secretName": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "title": "tls",
+          "type": "array"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "title": "ingress",
+      "type": "object"
+    },
+    "livenessProbe": {
+      "additionalProperties": false,
+      "description": "This is to setup the liveness and readiness probes more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",
+      "title": "livenessProbe",
+      "type": "object"
+    },
+    "nameOverride": {
+      "default": "",
+      "description": "This is to override the chart name.",
+      "title": "nameOverride",
+      "type": "string"
+    },
+    "nodeSelector": {
+      "additionalProperties": false,
+      "title": "nodeSelector",
+      "type": "object"
+    },
+    "podAnnotations": {
+      "additionalProperties": false,
+      "description": "This is for setting Kubernetes Annotations to a Pod. For more information checkout https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/",
+      "title": "podAnnotations",
+      "type": "object"
+    },
+    "podLabels": {
+      "additionalProperties": false,
+      "description": "This is for setting Kubernetes Labels to a Pod. For more information checkout https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/",
+      "title": "podLabels",
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "additionalProperties": false,
+      "title": "podSecurityContext",
+      "type": "object"
+    },
+    "readinessProbe": {
+      "additionalProperties": false,
+      "description": "This is to setup the liveness and readiness probes more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",
+      "title": "readinessProbe",
+      "type": "object"
+    },
+    "replicaCount": {
+      "default": 1,
+      "description": "This will set the replicaset count more information can be found here https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/",
+      "title": "replicaCount",
+      "type": "integer"
+    },
+    "resources": {
+      "additionalProperties": false,
+      "title": "resources",
+      "type": "object"
+    },
+    "securityContext": {
+      "additionalProperties": false,
+      "title": "securityContext",
+      "type": "object"
+    },
+    "service": {
+      "additionalProperties": false,
+      "description": "This is for setting up a service more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/",
+      "properties": {
+        "port": {
+          "default": 8135,
+          "description": "This sets the ports more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports",
+          "title": "port",
+          "type": "integer"
+        },
+        "type": {
+          "default": "ClusterIP",
+          "description": "This sets the service type more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types",
+          "title": "type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "port"
+      ],
+      "title": "service",
+      "type": "object"
+    },
+    "serviceAccount": {
+      "additionalProperties": false,
+      "description": "This section builds out the service account more information can be found here https://kubernetes.io/docs/concepts/security/service-accounts/",
+      "properties": {
+        "annotations": {
+          "additionalProperties": false,
+          "description": "Annotations to add to the service account",
+          "title": "annotations",
+          "type": "object"
+        },
+        "automount": {
+          "default": true,
+          "description": "Automatically mount a ServiceAccount's API credentials?",
+          "title": "automount",
+          "type": "boolean"
+        },
+        "create": {
+          "default": true,
+          "description": "Specifies whether a service account should be created",
+          "title": "create",
+          "type": "boolean"
+        },
+        "name": {
+          "default": "",
+          "description": "The name of the service account to use. If not set and create is true, a name is generated using the fullname template",
+          "title": "name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "create",
+        "automount"
+      ],
+      "title": "serviceAccount",
+      "type": "object"
+    },
+    "tolerations": {
+      "items": {},
+      "title": "tolerations",
+      "type": "array"
+    },
+    "volumeMounts": {
+      "description": "Additional volumeMounts on the output Deployment definition.",
+      "items": {
+        "properties": {
+          "mountPath": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "readOnly": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "title": "volumeMounts",
+      "type": "array"
+    },
+    "volumes": {
+      "description": "Additional volumes on the output Deployment definition.",
+      "items": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "secret": {
+            "properties": {
+              "optional": {
+                "type": "boolean"
+              },
+              "secretName": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "title": "volumes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "replicaCount",
+    "image",
+    "service",
+    "ingress",
+    "autoscaling"
+  ],
+  "type": "object"
+}

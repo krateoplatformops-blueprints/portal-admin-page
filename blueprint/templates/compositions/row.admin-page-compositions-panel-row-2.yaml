@@ -1,0 +1,18 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-compositions-panel-row-2
+spec:
+  widgetData:
+    allowedResources:
+    - panels
+    items:
+      - resourceRefId: panel-compositions
+  resourcesRefs:
+    items:
+    - id:  panel-compositions
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-panel-row-2-compositions-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET

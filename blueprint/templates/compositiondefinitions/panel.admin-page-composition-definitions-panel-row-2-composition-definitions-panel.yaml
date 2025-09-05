@@ -1,0 +1,33 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-row-2-composition-definitions-panel
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Installed Blueprints
+    items:
+      - resourceRefId: filter
+      - resourceRefId: table
+      - resourceRefId: panel-composition-definitions
+  resourcesRefs:
+    items:
+    - id:  filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-row-2f-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-row-2-composition-definitions-panel-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+    - id: panel-composition-definitions
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-row-2c-create-composition-definition-button
+      namespace: {{ .Release.Namespace }}
+      resource: button
+      verb: GET

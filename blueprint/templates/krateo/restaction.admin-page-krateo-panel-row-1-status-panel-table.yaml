@@ -1,0 +1,24 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-krateo-panel-row-1-status-panel-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: krateo
+    path: "/apis/krateo.io/v1alpha1/namespaces/{{ .Values.global.krateoNamespace }}/krateoplatformops/krateo"
+    filter: >
+      .krateo.status.releaseList
+      | sort_by(.updated) | reverse
+      | map(
+          [
+            {valueKey: "releaseName", kind: "jsonSchemaType", type: "string", stringValue: .releaseName},
+            {valueKey: "namespace",   kind: "jsonSchemaType", type: "string", stringValue: .namespace},
+            {valueKey: "appVersion",  kind: "jsonSchemaType", type: "string", stringValue: (.appVersion // "")},
+            {valueKey: "chartName",   kind: "jsonSchemaType", type: "string", stringValue: .chartName},
+            {valueKey: "chartVersion",kind: "jsonSchemaType", type: "string", stringValue: .chartVersion},
+            {valueKey: "revision",    kind: "jsonSchemaType", type: "integer", numberValue: .revision},
+            {valueKey: "status",      kind: "jsonSchemaType", type: "string", stringValue: .status},
+            {valueKey: "updated",     kind: "jsonSchemaType", type: "string", stringValue: .updated}
+          ]
+      )

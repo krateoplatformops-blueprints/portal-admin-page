@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-column-c-create-role-button
+spec:
+  widgetData:
+    label: Create Role
+    size: large
+    icon: fa-solid fa-file-contract
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: create
+          type: openDrawer
+          title: Create Role
+          size: large
+  resourcesRefs:
+    items:
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-column-c-create-role-button-form
+      namespace: {{ .Release.Namespace }}
+      resource: forms
+      verb: GET

@@ -1,0 +1,357 @@
+# Default values for proxylog.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  krateoNamespace: krateo-system
+
+# @schema
+# description: This will set the replicaset count more information can be found here https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+# type: integer
+# required: true
+# @schema
+replicaCount: 1
+
+# @schema
+# description: This sets the container image more information can be found here https://kubernetes.io/docs/concepts/containers/images/
+# type: object
+# required: true
+# @schema
+image:
+  # @schema
+  # type: string
+  # required: true
+  # default: ghcr.io/krateoplatformops/proxylog
+  # @schema
+  repository: ghcr.io/krateoplatformops/proxylog
+  # @schema
+  # type: string
+  # required: true
+  # default: Always
+  # description: This sets the pull policy for images.
+  # @schema
+  pullPolicy: Always
+  # @schema
+  # type: string
+  # required: false
+  # description: Overrides the image tag whose default is the chart appVersion.
+  # @schema
+  tag: ""
+
+# @schema
+# type: array
+# required: false
+# description: This is for the secrets for pulling an image from a private repository more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+# items: 
+#   type: object
+#   properties: 
+#     name:
+#       type: string
+#       description: Secret name.
+#       required: true
+# @schema
+imagePullSecrets: []
+# @schema
+# type: string
+# required: false
+# description: This is to override the chart name.
+# @schema
+nameOverride: ""
+# @schema
+# type: string
+# required: false
+# description: This is to override the chart name.
+# @schema
+fullnameOverride: ""
+
+# @schema
+# type: object
+# required: false
+# description: This section builds out the service account more information can be found here https://kubernetes.io/docs/concepts/security/service-accounts/
+# @schema
+serviceAccount:
+  # @schema
+  # type: boolean
+  # required: true
+  # description: Specifies whether a service account should be created
+  # default: true
+  # @schema
+  create: true
+  # @schema
+  # type: boolean
+  # required: true
+  # description: Automatically mount a ServiceAccount's API credentials?
+  # default: true
+  # @schema
+  automount: true
+  # @schema
+  # type: object
+  # required: false
+  # description: Annotations to add to the service account
+  # @schema
+  annotations: {}
+  # @schema
+  # type: string
+  # required: false
+  # description: The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+  # @schema
+  name: ""
+
+# @schema
+# type: object
+# required: false
+# description: This is for setting Kubernetes Annotations to a Pod. For more information checkout https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+# @schema
+podAnnotations: {}
+# @schema
+# type: object
+# required: false
+# description: This is for setting Kubernetes Labels to a Pod. For more information checkout https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+# @schema
+podLabels: {}
+
+# @schema
+# type: object
+# required: false
+# @schema
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# @schema
+# type: object
+# required: false
+# @schema
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# @schema
+# type: object
+# required: true
+# description: This is for setting up a service more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/
+# @schema
+service:
+  # @schema
+  # type: string
+  # required: true
+  # default: ClusterIP
+  # description: This sets the service type more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  # @schema
+  type: ClusterIP
+  # @schema
+  # type: integer
+  # required: true
+  # default: 8135
+  # description: This sets the ports more information can be found here https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  # @schema
+  port: 8135
+
+# @schema
+# type: object
+# required: true
+# description: This block is for setting up the ingress for more information can be found here https://kubernetes.io/docs/concepts/services-networking/ingress/
+# @schema
+ingress:
+  # @schema
+  # type: boolean
+  # required: true
+  # description: Enable the ingress.
+  # default: false
+  # @schema
+  enabled: false
+  # @schema
+  # type: string
+  # required: false
+  # @schema
+  className: ""
+  # @schema
+  # type: object
+  # required: false
+  # @schema
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # @schema
+  # type: array
+  # required: false
+  # items: 
+  #   type: object
+  #   properties: 
+  #     host:
+  #       type: string
+  #       required: true
+  #     paths:
+  #       type: array
+  #       required: true
+  #       items:
+  #         type: object
+  #         properties:
+  #           path:
+  #             type: string
+  #             required: true
+  #           pathType:
+  #             type: string
+  #             required: true
+  # @schema
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # @schema
+  # type: array
+  # required: false
+  # items: 
+  #   type: object
+  #   properties: 
+  #     secretName:
+  #       type: string
+  #       required: true
+  #     hosts:
+  #       type: array
+  #       required: true
+  #       items:
+  #         type: string
+  # @schema
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# @schema
+# type: object
+# required: false
+# @schema
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# @schema
+# type: object
+# required: false
+# description: This is to setup the liveness and readiness probes more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# @schema
+livenessProbe: {}
+  # httpGet:
+  #   path: /
+  #   port: http
+# @schema
+# type: object
+# required: false
+# description: This is to setup the liveness and readiness probes more information can be found here https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
+# @schema
+readinessProbe: {}
+  # httpGet:
+  #   path: /
+  #   port: http
+
+# @schema
+# type: object
+# required: true
+# description: This section is for setting up autoscaling more information can be found here https://kubernetes.io/docs/concepts/workloads/autoscaling/
+# @schema
+autoscaling:
+  # @schema
+  # type: boolean
+  # required: true
+  # default: false
+  # @schema
+  enabled: false
+  # @schema
+  # type: integer
+  # required: true
+  # default: 1
+  # @schema
+  minReplicas: 1
+  # @schema
+  # type: integer
+  # required: true
+  # default: 100
+  # @schema
+  maxReplicas: 100
+  # @schema
+  # type: integer
+  # required: true
+  # default: 80
+  # @schema
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# @schema
+# type: array
+# required: false
+# description: Additional volumes on the output Deployment definition.
+# items:
+#   type: object
+#   properties: 
+#     name:
+#       type: string
+#       required: true
+#     secret:
+#       type: object
+#       required: true
+#       properties:
+#         secretName:
+#           type: string
+#           required: true
+#         optional:
+#           type: boolean
+#           required: true
+# @schema
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# @schema
+# type: array
+# required: false
+# description: Additional volumeMounts on the output Deployment definition.
+# items:
+#   type: object
+#   properties: 
+#     name:
+#       type: string
+#       required: true
+#     mountPath:
+#       type: string
+#       required: true
+#     readOnly:
+#        type: boolean
+#        required: true
+# @schema
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+# @schema
+# type: object
+# required: false
+# @schema
+nodeSelector: {}
+
+# @schema
+# type: array
+# required: false
+# @schema
+tolerations: []
+
+# @schema
+# type: object
+# required: false
+# @schema
+affinity: {}

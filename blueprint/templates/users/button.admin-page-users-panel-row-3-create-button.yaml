@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-row-3-create-button
+spec:
+  widgetData:
+    label: Create
+    size: large
+    icon: fa-solid fa-plus
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: create
+          type: openDrawer
+          title: Create
+          size: default
+  resourcesRefs:
+    items:
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-column-c
+      namespace: {{ .Release.Namespace }}
+      resource: columns
+      verb: GET

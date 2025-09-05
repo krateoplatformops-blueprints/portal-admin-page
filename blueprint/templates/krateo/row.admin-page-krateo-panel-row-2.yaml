@@ -1,0 +1,18 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-panel-row-2
+spec:
+  widgetData:
+    allowedResources:
+    - panels
+    items:
+      - resourceRefId: panel-logs
+  resourcesRefs:
+    items:
+    - id:  panel-logs
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-row-2-logs-panel
+      namespace: {{ .Release.Namespace }}
+      resource: panels
+      verb: GET

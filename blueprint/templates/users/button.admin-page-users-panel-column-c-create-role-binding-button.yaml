@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-panel-column-c-create-role-binding-button
+spec:
+  widgetData:
+    label: Create Role Binding
+    size: large
+    icon: fa-solid fa-folder
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: create
+          type: openDrawer
+          title: Create Role Binding
+          size: large
+  resourcesRefs:
+    items:
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-column-c-create-role-binding-button-form
+      namespace: {{ .Release.Namespace }}
+      resource: forms
+      verb: GET

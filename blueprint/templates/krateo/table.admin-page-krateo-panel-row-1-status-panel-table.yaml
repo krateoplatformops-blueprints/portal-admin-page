@@ -1,0 +1,31 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-krateo-panel-row-1-status-panel-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-krateo-panel-row-1-status-panel-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    prefix: admin-page-status
+    columns:
+    - title: Name
+      valueKey: releaseName
+    - title: Namespace
+      valueKey: namespace
+    - title: App Version
+      valueKey: appVersion
+    - title: Chart Version
+      valueKey: chartVersion
+    - title: Revision
+      valueKey: revision
+    - title: Status
+      valueKey: status
+    - title: Last Update
+      valueKey: updated
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+  - expression: ${ .krateo }
+    forPath: data

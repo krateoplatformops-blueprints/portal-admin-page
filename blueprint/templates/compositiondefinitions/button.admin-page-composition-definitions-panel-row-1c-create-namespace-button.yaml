@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-row-1c-create-namespace-button
+spec:
+  widgetData:
+    label: Create Namespace
+    size: large
+    icon: fa-solid fa-plus
+    type: primary
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: create
+          type: openDrawer
+          title: Create Namespace
+          size: large
+  resourcesRefs:
+    items:
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-row-1c-create-namespace-button-form
+      namespace: {{ .Release.Namespace }}
+      resource: forms
+      verb: GET
