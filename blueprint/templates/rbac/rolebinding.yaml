@@ -1,0 +1,14 @@
+{{- if .Values.enableCyberjokerUser }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "proxylog.fullname" . }}
+subjects:
+- kind: Group
+  name: devs
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: {{ include "proxylog.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}

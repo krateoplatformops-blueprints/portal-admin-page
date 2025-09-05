@@ -1,0 +1,16 @@
+{{- if .Values.enableCyberjokerUser }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "proxylog.fullname" . }}
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: ["templates.krateo.io/v1"]
+  resources: ["restactions"]
+  verbs: ["create"]
+- apiGroups: ["widgets.templates.krateo.io/v1"]
+  resources: ["*"]
+  verbs: ["create"]
+{{- end }}
