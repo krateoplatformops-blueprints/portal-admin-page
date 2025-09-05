@@ -4,8 +4,6 @@ metadata:
   name: admin-page-compositions-panel-row-2f-filter-button
 spec:
   widgetData:
-    allowedResources:
-    - filters
     label: Filter Compositions
     size: middle
     icon: fa-solid fa-filter

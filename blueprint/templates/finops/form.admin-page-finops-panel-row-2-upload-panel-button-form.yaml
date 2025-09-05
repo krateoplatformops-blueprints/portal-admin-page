@@ -4,8 +4,6 @@ metadata:
   name: admin-page-finops-panel-row-2-upload-panel-button-form
 spec:
   widgetData:
-    allowedResources:
-    - notebooks
     submitActionId: upload
     stringSchema: |
         {

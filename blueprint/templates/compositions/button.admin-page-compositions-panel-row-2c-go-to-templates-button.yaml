@@ -4,8 +4,6 @@ metadata:
   name: admin-page-compositions-panel-row-2c-go-to-templates-button
 spec:
   widgetData:
-    allowedResources:
-    - "*"
     label: Go to Blueprints
     size: large
     icon: fa-solid fa-diamond-turn-right

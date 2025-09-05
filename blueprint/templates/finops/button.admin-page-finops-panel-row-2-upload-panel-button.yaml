@@ -4,8 +4,6 @@ metadata:
   name: admin-page-finops-panel-row-2-upload-panel-button
 spec:
   widgetData:
-    allowedResources:
-    - forms
     label: Upload Notebook
     icon: fa-solid fa-cloud-arrow-up
     size: large

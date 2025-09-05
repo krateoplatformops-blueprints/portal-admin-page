@@ -4,8 +4,6 @@ metadata:
   name: admin-page-composition-definitions-panel-row-1c-create-namespace-button
 spec:
   widgetData:
-    allowedResources:
-    - forms
     label: Create Namespace
     size: large
     icon: fa-solid fa-plus

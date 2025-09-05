@@ -4,8 +4,6 @@ metadata:
   name: admin-page-composition-definitions-panel-row-2f-filter-button
 spec:
   widgetData:
-    allowedResources:
-    - filters
     label: Filter Blueprints
     size: middle
     icon: fa-solid fa-filter
