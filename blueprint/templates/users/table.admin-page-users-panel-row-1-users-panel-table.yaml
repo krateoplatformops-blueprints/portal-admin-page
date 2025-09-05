@@ -8,6 +8,7 @@ spec:
     name: admin-page-users-panel-row-1-users-panel-table
     namespace: {{ .Release.Namespace }}
   widgetData:
+    allowedResources: []  
     prefix: admin-page-users
     columns:
     - title: Name
