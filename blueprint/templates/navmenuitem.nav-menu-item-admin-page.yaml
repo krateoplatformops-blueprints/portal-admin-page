@@ -11,7 +11,7 @@ spec:
     label: Admin
     icon: fa-solid fa-gears
     path: /admin
-    order: 10
+    order: 40
   resourcesRefs:
     items:  
     - id: admin-page
