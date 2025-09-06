@@ -41,11 +41,32 @@
       "title": "autoscaling",
       "type": "object"
     },
+    "enableCyberjokerUser": {
+      "default": true,
+      "description": "Enable cyberjoker user (basic authentication) with namespace-scoped permissions",
+      "title": "enableCyberjokerUser",
+      "type": "boolean"
+    },
     "fullnameOverride": {
       "default": "",
       "description": "This is to override the chart name.",
       "title": "fullnameOverride",
       "type": "string"
+    },
+    "global": {
+      "additionalProperties": false,
+      "properties": {
+        "krateoNamespace": {
+          "default": "krateo-system",
+          "title": "krateoNamespace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "krateoNamespace"
+      ],
+      "title": "global",
+      "type": "object"
     },
     "image": {
       "additionalProperties": false,
@@ -328,6 +349,7 @@
     }
   },
   "required": [
+    "global",
     "replicaCount",
     "image",
     "service",

@@ -9,7 +9,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getPods
@@ -19,7 +19,7 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
-    filter: "[.getPods.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getButtons
     continueOnError: true
     errorKey: getButtonsError
@@ -27,10 +27,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/buttons" }
-    filter: "[.getButtons.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getButtons.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getButtons as $b
-    | .getPods as $p
+    (.getButtons // []) as $b
+    | (.getPods // []) as $p
     | {
         buttonsToCreate: (
           $p
@@ -61,7 +61,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getPods
@@ -71,7 +71,7 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
-    filter: "[.getPods.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getPanels
     continueOnError: true
     errorKey: getPanelsError
@@ -79,10 +79,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/panels" }
-    filter: "[.getPanels.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPanels.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getPanels as $b
-    | .getPods as $p
+    (.getPanels // []) as $b
+    | (.getPods // []) as $p
     | {
         panelsToCreate: (
           $p
@@ -113,7 +113,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getPods
@@ -123,7 +123,7 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
-    filter: "[.getPods.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getParagraphs
     continueOnError: true
     errorKey: getParagraphsError
@@ -131,10 +131,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/markdowns" }
-    filter: "[.getParagraphs.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getParagraphs.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getParagraphs as $b
-    | .getPods as $p
+    (.getParagraphs // []) as $b
+    | (.getPods // []) as $p
     | {
         paragraphsToCreate: (
           $p
@@ -165,7 +165,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getPods
@@ -175,7 +175,7 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
-    filter: "[.getPods.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getRestActions
     continueOnError: true
     errorKey: getRestActionsError
@@ -183,10 +183,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/templates.krateo.io/v1/namespaces/" + (.) + "/restactions" }
-    filter: "[.getRestActions.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getRestActions.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getRestActions as $b
-    | .getPods as $p
+    (.getRestActions // []) as $b
+    | (.getPods // []) as $p
     | {
         restActionsToCreate: (
           $p
@@ -226,7 +226,7 @@ spec:
     continueOnError: true
     errorKey: listPodsAndButtonsError
     exportJwt: true
-    filter: ".listPodsAndButtons.status"
+    filter: ".listPodsAndButtons.status? // {}"
   - name: listPodsAndPanels
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-panels&namespace={{ .Release.Namespace }}"
     verb: GET
@@ -250,7 +250,7 @@ spec:
     continueOnError: true
     errorKey: listPodsAndParagraphsError
     exportJwt: true
-    filter: ".listPodsAndParagraphs.status"
+    filter: ".listPodsAndParagraphs.status? // {}"
   - name: listPodsAndRestActions
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-restactions&namespace={{ .Release.Namespace }}"
     verb: GET
@@ -262,7 +262,7 @@ spec:
     continueOnError: true
     errorKey: listPodsAndRestActionsError
     exportJwt: true
-    filter: ".listPodsAndRestActions.status"
+    filter: ".listPodsAndRestActions.status? // {}"
   - name: createButton
     continueOnError: true
     errorKey: createButtonError
@@ -468,7 +468,7 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: createAll
+    errorKey: createAllError
     exportJwt: true
     dependsOn: 
       name: namespaces

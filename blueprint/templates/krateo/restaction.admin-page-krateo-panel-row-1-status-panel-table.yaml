@@ -22,3 +22,7 @@ spec:
             {valueKey: "updated",     kind: "jsonSchemaType", type: "string", stringValue: .updated}
           ]
       )
+  filter: >
+    {
+      krateo: (.krateo? // [])
+    }

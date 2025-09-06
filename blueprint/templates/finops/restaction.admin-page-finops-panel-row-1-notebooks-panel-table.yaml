@@ -9,7 +9,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getNotebooks
@@ -18,7 +18,7 @@ spec:
       name: getNamespaces
     path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
     continueOnError: true
-    filter: "[.getNotebooks.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getButtons
     continueOnError: true
     errorKey: getButtonsError
@@ -26,10 +26,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/buttons" }
-    filter: "[.getButtons.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getButtons.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getButtons as $b
-    | .getNotebooks as $p
+    (.getButtons // []) as $b
+    | (.getNotebooks // []) as $p
     | {
         buttonsToCreate: (
           $p
@@ -60,7 +60,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getNotebooks
@@ -69,7 +69,7 @@ spec:
       name: getNamespaces
     path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
     continueOnError: true
-    filter: "[.getNotebooks.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getPanels
     continueOnError: true
     errorKey: getPanelsError
@@ -77,10 +77,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/panels" }
-    filter: "[.getPanels.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getPanels.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getPanels as $b
-    | .getNotebooks as $p
+    (.getPanels // []) as $b
+    | (.getNotebooks // []) as $p
     | {
         panelsToCreate: (
           $p
@@ -111,7 +111,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getNotebooks
@@ -120,7 +120,7 @@ spec:
       name: getNamespaces
     path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
     continueOnError: true
-    filter: "[.getNotebooks.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getParagraphs
     continueOnError: true
     errorKey: getParagraphsError
@@ -128,10 +128,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/markdowns" }
-    filter: "[.getParagraphs.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getParagraphs.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getParagraphs as $b
-    | .getNotebooks as $p
+    (.getParagraphs // []) as $b
+    | (.getNotebooks // []) as $p
     | {
         paragraphsToCreate: (
           $p
@@ -162,7 +162,7 @@ spec:
   api:
   - name: getNamespaces
     path: "/api/v1/namespaces"
-    filter: "[.getNamespaces.items[] | .metadata.name]"
+    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
   - name: getNotebooks
@@ -171,7 +171,7 @@ spec:
       name: getNamespaces
     path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
     continueOnError: true
-    filter: "[.getNotebooks.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getRestActions
     continueOnError: true
     errorKey: getRestActionsError
@@ -179,10 +179,10 @@ spec:
       name: getNamespaces
       iterator: .getNamespaces
     path: ${ "/apis/templates.krateo.io/v1/namespaces/" + (.) + "/restactions" }
-    filter: "[.getRestActions.items[] | {name: .metadata.name, namespace: .metadata.namespace} ]"
+    filter: "(.getRestActions.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
-    .getRestActions as $b
-    | .getNotebooks as $p
+    (.getRestActions // []) as $b
+    | (.getNotebooks // []) as $p
     | {
         restActionsToCreate: (
           $p
@@ -222,7 +222,7 @@ spec:
     continueOnError: true
     errorKey: listNotebooksAndButtonsError
     exportJwt: true
-    filter: ".listNotebooksAndButtons.status"
+    filter: ".listNotebooksAndButtons.status? // {}"
   - name: listNotebooksAndPanels
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-panels&namespace={{ .Release.Namespace }}"
     verb: GET
@@ -234,7 +234,7 @@ spec:
     continueOnError: true
     errorKey: listNotebooksAndPanelsError
     exportJwt: true
-    filter: ".listNotebooksAndPanels.status"
+    filter: ".listNotebooksAndPanels.status? // {}"
   - name: listNotebooksAndParagraphs
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-paragraphs&namespace={{ .Release.Namespace }}"
     verb: GET
@@ -246,7 +246,7 @@ spec:
     continueOnError: true
     errorKey: listNotebooksAndParagraphsError
     exportJwt: true
-    filter: ".listNotebooksAndParagraphs.status"
+    filter: ".listNotebooksAndParagraphs.status? // {}"
   - name: listNotebooksAndRestActions
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-restactions&namespace={{ .Release.Namespace }}"
     verb: GET
@@ -258,7 +258,7 @@ spec:
     continueOnError: true
     errorKey: listNotebooksAndRestActionsError
     exportJwt: true
-    filter: ".listNotebooksAndRestActions.status"
+    filter: ".listNotebooksAndRestActions.status? // {}"
   - name: createButton
     continueOnError: true
     errorKey: createButtonError

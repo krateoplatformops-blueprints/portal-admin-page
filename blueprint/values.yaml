@@ -2,6 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# @schema
+# description: Enable cyberjoker user (basic authentication) with namespace-scoped permissions
+# type: boolean
+# default: true
+# @schema
+enableCyberjokerUser: true
+
 global:
   krateoNamespace: krateo-system
 
