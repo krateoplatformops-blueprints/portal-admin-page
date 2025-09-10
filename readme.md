@@ -17,10 +17,10 @@ This blueprint deploys a new menu option that offers control over Krateo functio
 Install the Blueprint:
 
 ```sh
-helm install <name> admin-page \
+helm install <name> portal-admin-page \
   --repo https://marketplace.krateo.io \
-  --namespace <krateo-namespace \
-  --version 0.0.1 \
+  --namespace <krateo-namespace> \
+  --version 1.0.0 \
   --wait
 ```
 
