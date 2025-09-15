@@ -1,0 +1,37 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-panel-column-row-1-notebooks
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    allowedResources:
+    - rows
+    - buttons
+    items:
+      - resourceRefId: column-1
+        size: 20
+      - resourceRefId: filter
+        size: 2
+      - resourceRefId: create
+        size: 2
+  resourcesRefs:
+    items:
+    - id:  column-1
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: empty
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-upload-panel-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET

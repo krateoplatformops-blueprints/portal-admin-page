@@ -1,0 +1,20 @@
+kind: Filters
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-filter-button-users-filters
+spec:
+  widgetData:
+    prefix: admin-page-users
+    fields:
+    - label: Name
+      type: string
+      name: 
+        - name
+    - label: Namespace
+      type: string
+      name: 
+        - namespace
+    - label: Groups
+      type: string
+      name: 
+        - groups

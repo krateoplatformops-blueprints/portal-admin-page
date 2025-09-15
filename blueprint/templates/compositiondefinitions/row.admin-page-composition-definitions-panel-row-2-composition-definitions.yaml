@@ -1,0 +1,37 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-column-row-2-composition-definitions
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    allowedResources:
+    - buttons
+    - rows
+    items:
+      - resourceRefId: column-1
+        size: 20
+      - resourceRefId: filter
+        size: 2
+      - resourceRefId: create
+        size: 1
+  resourcesRefs:
+    items:
+    - id:  column-1
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: empty
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id:  filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-filter-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-create-composition-definition-button
+      namespace: {{ .Release.Namespace }}
+      resource: button
+      verb: GET

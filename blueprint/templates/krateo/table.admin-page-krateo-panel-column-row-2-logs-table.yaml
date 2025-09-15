@@ -1,0 +1,38 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-krateo-panel-column-row-2-logs-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-krateo-panel-column-row-2-logs-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources:
+    - buttons
+    prefix: admin-page-logs
+    columns:
+    - title: Name
+      valueKey: name
+    - title: Namespace
+      valueKey: namespace
+    - title: Status
+      valueKey: status  
+    - title: Date
+      valueKey: date
+    - title: Logs
+      valueKey: logs
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+    - forPath: data
+      expression: ${ .list }
+  resourcesRefsTemplate:
+    - iterator: ${ .pods }
+      template:
+        id: ${ .metadata.name }
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: buttons
+        namespace: ${ .metadata.namespace }
+        name: ${ .metadata.name }
+        verb: GET

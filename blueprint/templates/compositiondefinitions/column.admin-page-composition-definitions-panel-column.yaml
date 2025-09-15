@@ -1,0 +1,73 @@
+kind: Column
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-column
+spec:
+  widgetData:
+    allowedResources:
+    - rows
+    - markdowns
+    - tables
+    items:
+      - resourceRefId: row-1-title
+      - resourceRefId: row-1-buttons
+      - resourceRefId: row-1-table
+      - resourceRefId: row-2-title
+      - resourceRefId: row-2-buttons
+      - resourceRefId: row-2-table
+  resourcesRefs:
+    items:
+    - id:  row-1-title
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-1-title
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
+    - id:  row-1-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-1-namespaces
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-1-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-1-namespaces-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+    - id:  row-2-title
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-2-title
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
+    - id:  row-2-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-2-composition-definitions
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-2-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-panel-column-row-2-composition-definitions-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+---
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-column-row-1-title
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: "## Namespaces"
+---
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-panel-column-row-2-title
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: "## Installed Blueprints"

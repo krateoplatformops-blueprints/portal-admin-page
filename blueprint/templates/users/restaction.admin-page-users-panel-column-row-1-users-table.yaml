@@ -1,0 +1,53 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-users-panel-column-row-1-users-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: "/api/v1/namespaces"
+    filter: "[.namespaces.items[] | .metadata.name]"
+    continueOnError: true
+  - name: basic
+    dependsOn:
+      iterator: .[]
+      name: namespaces
+    path: ${ "/apis/basic.authn.krateo.io/v1alpha1/namespaces/" + (.) + "/users"}
+    continueOnError: true
+  filter: >
+    {
+      list: (
+        (
+          if (.basic | type) == "array" then
+            [.basic[]?.items[]?]
+          elif (.basic | type) == "object" then
+            [.basic.items[]?]
+          else
+            []
+          end
+        | map(
+            [
+              {
+                valueKey: "name",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: .metadata.name
+              },
+              {
+                valueKey: "namespace",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: .metadata.namespace
+              },
+              {
+                valueKey: "groups",
+                kind: "jsonSchemaType",
+                type: "array",
+                arrayValue: (.spec.groups // [])
+              }
+            ]
+          )
+        )
+      )
+    }

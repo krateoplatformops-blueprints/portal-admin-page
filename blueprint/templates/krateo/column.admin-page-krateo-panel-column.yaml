@@ -1,0 +1,72 @@
+kind: Column
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-panel-column
+spec:
+  widgetData:
+    allowedResources:
+    - rows
+    - tables
+    items:
+      - resourceRefId: row-1-title
+      - resourceRefId: row-1-buttons
+      - resourceRefId: row-1-table
+      - resourceRefId: row-2-title
+      - resourceRefId: row-2-buttons
+      - resourceRefId: row-2-table
+  resourcesRefs:
+    items:
+    - id:  row-1-title
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-1-status-panel-title
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
+    - id:  row-1-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-1-status-buttons
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-1-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-1-status-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+    - id:  row-2-title
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-2-logs-panel-title
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
+    - id:  row-2-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-2-logs-buttons
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-2-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-panel-column-row-2-logs-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+---
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-panel-column-row-1-status-panel-title
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: "## Krateo Installed Charts"
+---
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-panel-column-row-2-logs-panel-title
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: "## Pods and Logs"
