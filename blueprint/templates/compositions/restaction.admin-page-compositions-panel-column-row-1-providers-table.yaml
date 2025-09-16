@@ -1,0 +1,57 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-compositions-panel-column-row-1-providers-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: "/api/v1/namespaces"
+    filter: "[.namespaces.items[] | .metadata.name]"
+    continueOnError: true
+  - name: providers
+    dependsOn:
+      iterator: .[]
+      name: namespaces
+    path: ${ "/apis/apps/v1/namespaces/" + (.) + "/deployments"}
+    continueOnError: true
+  filter: >
+    {
+      list: (
+        (
+          if (.providers | type) == "array" then
+            [.providers[]?.items[]?]
+          elif (.providers | type) == "object" then
+            [.providers.items[]?]
+          else
+            []
+          end
+        | map(select(
+              .metadata.labels["app.kubernetes.io/component"] == "controller" and
+              .metadata.labels["app.kubernetes.io/part-of"] == "krateoplatformops"
+            ) | {
+              name: .metadata.name,
+              namespace: .metadata.namespace,
+              date: .metadata.creationTimestamp,
+              status: (
+                if (.status.conditions | type) == "array" then
+                  ([.status.conditions[]? 
+                    | select(.type == "Available") 
+                    | "Available: " + .status] 
+                  | first? // "Status not available")
+                else
+                  "Status not available"
+                end
+              )
+            })
+        | sort_by(.date)
+        | reverse
+        | map([
+            { valueKey: "name",      kind: "jsonSchemaType", type: "string", stringValue: .name },
+            { valueKey: "namespace", kind: "jsonSchemaType", type: "string", stringValue: .namespace },
+            { valueKey: "date",      kind: "jsonSchemaType", type: "string", stringValue: .date },
+            { valueKey: "status",    kind: "jsonSchemaType", type: "string", stringValue: .status }
+          ])
+        )
+      )
+    }

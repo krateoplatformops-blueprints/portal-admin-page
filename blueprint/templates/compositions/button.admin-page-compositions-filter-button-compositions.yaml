@@ -1,0 +1,26 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-compositions-filter-button-compositions
+spec:
+  widgetData:
+    label: Filter
+    size: middle
+    icon: fa-solid fa-filter
+    type: default
+    clickActionId: open-drawer-action
+    actions:
+      openDrawer:
+        - id: open-drawer-action
+          resourceRefId: filter
+          type: openDrawer
+          title: Filter Compositions
+          size: default
+  resourcesRefs:
+    items:
+    - id: filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-filter-button-compositions-filters
+      namespace: {{ .Release.Namespace }}
+      resource: filters
+      verb: GET

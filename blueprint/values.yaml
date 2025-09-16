@@ -43,7 +43,7 @@ image:
   # required: false
   # description: Overrides the image tag whose default is the chart appVersion.
   # @schema
-  tag: ""
+  tag: "1.0.0"
 
 # @schema
 # type: array

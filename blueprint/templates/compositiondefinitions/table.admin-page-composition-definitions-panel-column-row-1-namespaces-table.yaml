@@ -1,0 +1,19 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-composition-definitions-panel-column-row-1-namespaces-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-composition-definitions-panel-column-row-1-namespaces-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources: []  
+    columns:
+    - title: Name
+      valueKey: name
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+    - forPath: data
+      expression: ${ .list }

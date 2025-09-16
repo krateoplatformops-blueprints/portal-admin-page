@@ -1,0 +1,41 @@
+kind: Column
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-panel-column
+spec:
+  widgetData:
+    allowedResources:
+    - rows
+    items:
+      - resourceRefId: title
+      - resourceRefId: buttons
+      - resourceRefId: notebooks
+  resourcesRefs:
+    items:
+    - id:  title
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-column-row-1-title
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
+    - id:  buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-column-row-1-notebooks
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: notebooks
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-column-row-1-notebooks-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET
+---
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-panel-column-row-1-title
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: "## Notebooks"
