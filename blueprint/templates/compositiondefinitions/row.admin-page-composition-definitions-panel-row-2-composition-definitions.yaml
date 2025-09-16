@@ -10,11 +10,13 @@ spec:
     - rows
     items:
       - resourceRefId: column-1
-        size: 20
+        size: 17
       - resourceRefId: filter
         size: 2
       - resourceRefId: create
-        size: 1
+        size: 2
+      - resourceRefId: create-ui
+        size: 2
   resourcesRefs:
     items:
     - id:  column-1
@@ -32,6 +34,12 @@ spec:
     - id: create
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: admin-page-composition-definitions-create-composition-definition-button
+      namespace: {{ .Release.Namespace }}
+      resource: button
+      verb: GET
+    - id: create-ui
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-create-composition-definition-ui-button
       namespace: {{ .Release.Namespace }}
       resource: button
       verb: GET
