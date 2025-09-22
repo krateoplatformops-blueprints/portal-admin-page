@@ -1,0 +1,26 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-compositions-column-panel-1
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Compositions' Providers
+    items:
+      - resourceRefId: row-1-buttons
+      - resourceRefId: row-1-table
+  resourcesRefs:
+    items:
+    - id:  row-1-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-column-panel-row-1-providers
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-1-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-compositions-column-panel-row-1-providers-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

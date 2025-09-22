@@ -1,26 +1,26 @@
 kind: Button
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-users-panel-row-3-create-button
+  name: admin-page-composition-filter-button
 spec:
   widgetData:
-    label: Create
+    label: Filter
     size: middle
-    icon: fa-solid fa-plus
-    type: primary
+    icon: fa-solid fa-filter
+    type: default
     clickActionId: open-drawer-action
     actions:
       openDrawer:
         - id: open-drawer-action
-          resourceRefId: create
+          resourceRefId: filter
           type: openDrawer
-          title: Create
+          title: Filter Blueprints
           size: default
   resourcesRefs:
     items:
-    - id: create
+    - id: filter
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-users-column-panel-c
+      name: admin-page-composition-filter-button-filters
       namespace: {{ .Release.Namespace }}
-      resource: columns
+      resource: filters
       verb: GET

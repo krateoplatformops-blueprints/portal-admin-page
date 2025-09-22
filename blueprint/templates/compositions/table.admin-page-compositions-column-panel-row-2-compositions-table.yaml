@@ -1,0 +1,81 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-compositions-column-panel-row-2-compositions-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-compositions-column-panel-row-2-compositions-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources: []  
+    prefix: admin-page-compositions
+    columns:
+    - title: Name
+      valueKey: name
+    - title: Namespace
+      valueKey: namespace
+    - title: Status
+      valueKey: status
+    - title: Date
+      valueKey: date
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+    - forPath: data
+      expression: |
+        ${
+           (
+            (
+              if (.allCompositions | type) == "array" then
+                [.allCompositions[]?.items[]?]
+              elif (.allCompositions | type) == "object" then
+                [.allCompositions.items[]?]
+              else
+                []
+              end
+            )
+            | map(
+                [
+                  {
+                    valueKey: "key",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .metadata.uid
+                  },
+                  {
+                    valueKey: "name",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .metadata.name
+                  },
+                  {
+                    valueKey: "namespace",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .metadata.namespace
+                  },
+                  {
+                    valueKey: "date",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: .metadata.creationTimestamp
+                  },
+                  {
+                    valueKey: "status",
+                    kind: "jsonSchemaType",
+                    type: "string",
+                    stringValue: (
+                      if (.status.conditions | type) == "array" then
+                        ( [.status.conditions[]? | select(.type == "Ready") | "Ready: " + .status] | first? // "Status not available" )
+                      else
+                        "Status not available"
+                      end
+                    )
+                  }
+                ]
+              )
+            | sort_by(.[3].stringValue)  # sort by date cell
+            | reverse
+          )
+        }

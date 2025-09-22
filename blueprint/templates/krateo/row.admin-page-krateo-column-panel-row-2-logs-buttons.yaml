@@ -1,19 +1,20 @@
-kind: Panel
+kind: Row
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-finops-panel
+  name: admin-page-krateo-column-panel-row-2-logs-buttons
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
-    actions: {}
-    title: Notebooks
+    allowedResources:
+    - buttons
     items:
-      - resourceRefId: column
+      - resourceRefId: filter
+        alignment: right
   resourcesRefs:
     items:
-    - id: column
+    - id: filter
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-finops-panel-column
+      name: admin-page-krateo-filter-button-pods
       namespace: {{ .Release.Namespace }}
-      resource: columns
+      resource: buttons
       verb: GET

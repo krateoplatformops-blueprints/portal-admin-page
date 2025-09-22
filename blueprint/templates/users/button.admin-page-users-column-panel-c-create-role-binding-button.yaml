@@ -1,12 +1,12 @@
 kind: Button
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-users-panel-row-3-create-button
+  name: admin-page-users-column-panel-c-create-role-binding-button
 spec:
   widgetData:
-    label: Create
-    size: middle
-    icon: fa-solid fa-plus
+    label: Create Role Binding
+    size: large
+    icon: fa-solid fa-folder
     type: primary
     clickActionId: open-drawer-action
     actions:
@@ -14,13 +14,13 @@ spec:
         - id: open-drawer-action
           resourceRefId: create
           type: openDrawer
-          title: Create
-          size: default
+          title: Create Role Binding
+          size: large
   resourcesRefs:
     items:
     - id: create
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-users-column-panel-c
+      name: admin-page-users-column-panel-c-create-role-binding-button-form
       namespace: {{ .Release.Namespace }}
-      resource: columns
+      resource: forms
       verb: GET

@@ -7,46 +7,52 @@ spec:
   widgetData:
     allowedResources:
     - panels
+    - columns
     items:
       - label: Krateo
-        resourceRefId: admin-page-krateo-panel
+        resourceRefId: admin-page-krateo-column
+        title: Krateo and Cluster Status
       - label: Blueprints
-        resourceRefId: admin-page-composition-definitions-panel
+        resourceRefId: admin-page-composition-definitions-column
+        title: Blueprints
       - label: Compositions
-        resourceRefId: admin-page-compositions-panel
+        resourceRefId: admin-page-compositions-column
+        title: Compositions in the Cluster
       - label: Users
-        resourceRefId: admin-page-users-panel
+        resourceRefId: admin-page-users-column
+        title: Local Users, Groups, and Permissions
       # - label: Blueprints
       #   resourceRefId: admin-page-blueprints-panel
       - label: FinOps
         resourceRefId: admin-page-finops-panel
+        title: FinOps Database Handler
       # - label: RESTActions
       #   resourceRefId: admin-page-restactions-panel
   resourcesRefs:
     items:
-    - id: admin-page-krateo-panel
+    - id: admin-page-krateo-column
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-krateo-panel
+      name: admin-page-krateo-column
       namespace: {{ .Release.Namespace }}
-      resource: panels
+      resource: columns
       verb: GET
-    - id: admin-page-composition-definitions-panel
+    - id: admin-page-composition-definitions-column
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-composition-definitions-panel
+      name: admin-page-composition-definitions-column
       namespace: {{ .Release.Namespace }}
-      resource: panels
+      resource: columns
       verb: GET
-    - id: admin-page-compositions-panel
+    - id: admin-page-compositions-column
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-compositions-panel
+      name: admin-page-compositions-column
       namespace: {{ .Release.Namespace }}
-      resource: panels
+      resource: columns
       verb: GET
-    - id: admin-page-users-panel
+    - id: admin-page-users-column
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-users-panel
+      name: admin-page-users-column
       namespace: {{ .Release.Namespace }}
-      resource: panels
+      resource: columns
       verb: GET
     # - id: admin-page-blueprints-panel
     #   apiVersion: widgets.templates.krateo.io/v1beta1

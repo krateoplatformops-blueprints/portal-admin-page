@@ -1,0 +1,22 @@
+kind: Button
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-compositions-go-to-templates-button
+spec:
+  widgetData:
+    label: Go to Blueprints
+    size: middle
+    icon: fa-solid fa-diamond-turn-right
+    type: primary
+    clickActionId: templates
+    actions:
+      navigate:
+        - id: templates
+          type: navigate
+          path: /blueprints
+          resourceRefId: templates
+  resourcesRefs:
+    items:
+    - id: templates
+    
+    

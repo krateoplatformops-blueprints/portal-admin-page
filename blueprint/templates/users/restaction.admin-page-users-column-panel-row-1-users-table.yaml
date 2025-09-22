@@ -1,0 +1,17 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-users-column-panel-row-1-users-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: "/api/v1/namespaces"
+    filter: "[.namespaces.items[] | .metadata.name]"
+    continueOnError: true
+  - name: basic
+    dependsOn:
+      iterator: .[]
+      name: namespaces
+    path: ${ "/apis/basic.authn.krateo.io/v1alpha1/namespaces/" + (.) + "/users"}
+    continueOnError: true

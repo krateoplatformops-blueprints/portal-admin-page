@@ -1,0 +1,107 @@
+kind: Form
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-upload-panel-button-form
+spec:
+  widgetData:
+    submitActionId: upload
+    stringSchema: |
+        {
+            "properties": {
+                "metadata": {
+                    "properties": {
+                        "name": {
+                            "type": "string"
+                        },
+                        "namespace": {
+                            "type": "string",
+                            "default": "{{ .Release.Namespace }}"
+                        }
+                    },
+                    "type": "object",
+                    "required": [
+                        "name",
+                        "namespace"
+                    ]
+                }, 
+                "type": {
+                    "enum": [
+                        "Inline",
+                        "API"
+                    ],
+                    "type": "string",
+                    "description": "The type of notebook. Inline requires Python code in inline. API requires an endpoint with a .py file"
+                },
+                "inline": {
+                    "type": "string",
+                    "description": "Python code for the notebook"
+                },
+                "api": {
+                    "description": "API represents a request to an HTTP service",
+                    "properties": {
+                        "verb": {
+                            "description": "Verb is the request method (GET if omitted)",
+                            "enum": [
+                                "GET",
+                                "POST"
+                            ],
+                            "type": "string"
+                        },
+                        "endpointRef": {
+                            "description": "EndpointRef a reference to an Endpoint",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "namespace": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "path": {
+                            "description": "Path is the request URI path",
+                            "type": "string"
+                        },
+                        "headers": {
+                            "description": "Headers is an array of custom request headers",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array",
+                            "x-kubernetes-list-type": "atomic"
+                        },
+                        "payload": {
+                            "description": "Payload is the request body",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "required": [
+                "metadata",
+                "type"
+            ],
+            "type": "object"
+        }
+    actions:
+      rest:
+        - id: upload
+          resourceRefId: resource-ref-1
+          type: rest
+          payloadKey: spec
+          payloadToOverride:
+          - name: metadata.name
+            value: ${ metadata.name }
+          - name: metadata.namespace
+            value: ${ metadata.namespace }
+          headers:
+          - "content-type: application/json"
+  resourcesRefs:
+    items:
+    - id: resource-ref-1
+      apiVersion: finops.krateo.io/v1
+      namespace: {{ .Release.Namespace }} 
+      resource: notebooks
+      verb: POST
