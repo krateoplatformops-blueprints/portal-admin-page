@@ -1,0 +1,17 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-composition-definitions-column-panel-row-2-composition-definitions-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - filter: '[.namespaces.items[] | .metadata.name]'
+    name: namespaces
+    path: /api/v1/namespaces
+    continueOnError: true
+  - name: allCompositionDefinitions
+    continueOnError: true
+    dependsOn:
+      iterator: .[]
+      name: namespaces
+    path: ${ "/apis/core.krateo.io/v1alpha1/namespaces/" + (.) + "/compositiondefinitions"}

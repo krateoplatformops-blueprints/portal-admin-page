@@ -1,13 +1,13 @@
 kind: Row
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-finops-panel-column-row-1-notebooks
+  name: admin-page-compositions-column-panel-row-2-compositions
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
     allowedResources:
-    - rows
     - buttons
+    - rows
     items:
       - resourceRefId: filter
         alignment: right
@@ -15,15 +15,15 @@ spec:
         alignment: right
   resourcesRefs:
     items:
-    - id: filter
+    - id:  filter
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-finops-filter-button
+      name: admin-page-compositions-filter-button-compositions
       namespace: {{ .Release.Namespace }}
       resource: buttons
       verb: GET
-    - id: create
+    - id:  create
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-finops-upload-panel-button
+      name: admin-page-compositions-go-to-templates-button
       namespace: {{ .Release.Namespace }}
       resource: buttons
       verb: GET

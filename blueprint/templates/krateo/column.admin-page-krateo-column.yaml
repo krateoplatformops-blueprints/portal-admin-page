@@ -1,25 +1,25 @@
 kind: Column
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-composition-definitions-column
+  name: admin-page-krateo-column
 spec:
   widgetData:
     allowedResources:
     - panels
     items:
-      - resourceRefId: row-1
-      - resourceRefId: row-2
+    - resourceRefId: row-1
+    - resourceRefId: row-2
   resourcesRefs:
     items:
     - id: row-1
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-composition-definitions-column-panel-1
+      name: admin-page-krateo-column-panel-1
       namespace: {{ .Release.Namespace }}
       resource: panels
       verb: GET
     - id: row-2
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-composition-definitions-column-panel-2
+      name: admin-page-krateo-column-panel-2
       namespace: {{ .Release.Namespace }}
       resource: panels
       verb: GET

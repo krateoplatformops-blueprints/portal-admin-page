@@ -3,7 +3,7 @@ kind: RESTAction
 metadata:
   annotations:
     krateo.io/verbose: "true"
-  name: admin-page-finops-panel-row-1-list-notebooks-and-buttons
+  name: admin-page-krateo-panel-row-2-list-pods-and-buttons
   namespace: {{ .Release.Namespace }}
 spec:
   api:
@@ -12,13 +12,14 @@ spec:
     filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
-  - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+  - name: getPods
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    errorKey: getPodsError
+    dependsOn: 
+      name: getNamespaces
+      iterator: .getNamespaces
+    path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getButtons
     continueOnError: true
     errorKey: getButtonsError
@@ -29,7 +30,7 @@ spec:
     filter: "(.getButtons.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
     (.getButtons // []) as $b
-    | (.getNotebooks // []) as $p
+    | (.getPods // []) as $p
     | {
         buttonsToCreate: (
           $p
@@ -54,7 +55,7 @@ kind: RESTAction
 metadata:
   annotations:
     krateo.io/verbose: "true"
-  name: admin-page-finops-panel-row-1-list-notebooks-and-paragraphs
+  name: admin-page-krateo-panel-row-2-list-pods-and-paragraphs
   namespace: {{ .Release.Namespace }}
 spec:
   api:
@@ -63,13 +64,14 @@ spec:
     filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
-  - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+  - name: getPods
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    errorKey: getPodsError
+    dependsOn: 
+      name: getNamespaces
+      iterator: .getNamespaces
+    path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getParagraphs
     continueOnError: true
     errorKey: getParagraphsError
@@ -80,7 +82,7 @@ spec:
     filter: "(.getParagraphs.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
     (.getParagraphs // []) as $b
-    | (.getNotebooks // []) as $p
+    | (.getPods // []) as $p
     | {
         paragraphsToCreate: (
           $p
@@ -105,7 +107,7 @@ kind: RESTAction
 metadata:
   annotations:
     krateo.io/verbose: "true"
-  name: admin-page-finops-panel-row-1-list-notebooks-and-restactions
+  name: admin-page-krateo-panel-row-2-list-pods-and-restactions
   namespace: {{ .Release.Namespace }}
 spec:
   api:
@@ -114,13 +116,14 @@ spec:
     filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
     continueOnError: true
     errorKey: getNamespacesError
-  - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+  - name: getPods
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    errorKey: getPodsError
+    dependsOn: 
+      name: getNamespaces
+      iterator: .getNamespaces
+    path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
+    filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getRestActions
     continueOnError: true
     errorKey: getRestActionsError
@@ -131,7 +134,7 @@ spec:
     filter: "(.getRestActions.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   filter: >
     (.getRestActions // []) as $b
-    | (.getNotebooks // []) as $p
+    | (.getPods // []) as $p
     | {
         restActionsToCreate: (
           $p
@@ -156,12 +159,12 @@ kind: RESTAction
 metadata:
   annotations:
     krateo.io/verbose: "true"
-  name: admin-page-finops-panel-row-1-list-notebooks-and-create
+  name: admin-page-krateo-panel-row-2-list-pods-and-create
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - name: listNotebooksAndButtons
-    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-buttons&namespace={{ .Release.Namespace }}"
+  - name: listPodsAndButtons
+    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-buttons&namespace={{ .Release.Namespace }}"
     verb: GET
     endpointRef:
       name: snowplow-endpoint
@@ -169,11 +172,11 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: listNotebooksAndButtonsError
+    errorKey: listPodsAndButtonsError
     exportJwt: true
-    filter: ".listNotebooksAndButtons.status? // {}"
-  - name: listNotebooksAndParagraphs
-    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-paragraphs&namespace={{ .Release.Namespace }}"
+    filter: ".listPodsAndButtons.status? // {}"
+  - name: listPodsAndParagraphs
+    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-paragraphs&namespace={{ .Release.Namespace }}"
     verb: GET
     endpointRef:
       name: snowplow-endpoint
@@ -181,11 +184,11 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: listNotebooksAndParagraphsError
+    errorKey: listPodsAndParagraphsError
     exportJwt: true
-    filter: ".listNotebooksAndParagraphs.status? // {}"
-  - name: listNotebooksAndRestActions
-    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-restactions&namespace={{ .Release.Namespace }}"
+    filter: ".listPodsAndParagraphs.status? // {}"
+  - name: listPodsAndRestActions
+    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-restactions&namespace={{ .Release.Namespace }}"
     verb: GET
     endpointRef:
       name: snowplow-endpoint
@@ -193,15 +196,15 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: listNotebooksAndRestActionsError
+    errorKey: listPodsAndRestActionsError
     exportJwt: true
-    filter: ".listNotebooksAndRestActions.status? // {}"
+    filter: ".listPodsAndRestActions.status? // {}"
   - name: createButton
     continueOnError: true
     errorKey: createButtonError
     dependsOn: 
-      name: listNotebooksAndButtons
-      iterator: .listNotebooksAndButtons.buttonsToCreate
+      name: listPodsAndButtons
+      iterator: .listPodsAndButtons.buttonsToCreate
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.namespace ) + "/buttons/" }
     verb: POST
     headers:
@@ -220,7 +223,7 @@ spec:
           },
           "spec": {
             "widgetData": {
-              "label": "Code",
+              "label": "Logs",
               "icon": "fa-solid fa-list",
               "size": "middle",
               "type": "primary",
@@ -231,7 +234,7 @@ spec:
                     "id": "open",
                     "resourceRefId": "paragraph",
                     "type": "openModal",
-                    "title": "Notebook Code: " + .name,
+                    "title": "Logs for: " + .name,
                     "size": "large"
                   }
                 ]
@@ -256,8 +259,8 @@ spec:
     continueOnError: true
     errorKey: createParagraphError
     dependsOn: 
-      name: listNotebooksAndParagraphs
-      iterator: .listNotebooksAndParagraphs.paragraphsToCreate
+      name: listPodsAndParagraphs
+      iterator: .listPodsAndParagraphs.paragraphsToCreate
     path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.namespace ) + "/markdowns/" }
     verb: POST
     headers:
@@ -279,12 +282,12 @@ spec:
               "markdown": "",
               "allowCopy": true,
               "allowDownload": true,
-              "downloadFileExtension": "py"
+              "downloadFileExtension": "txt"
             },
             "widgetDataTemplate": [
               {
                 "forPath": "markdown",
-                "expression": "${ \"```python\n\" + .notebook.code }"
+                "expression": "${ .text.logs }"
               }
             ],
             "apiRef": {
@@ -298,8 +301,8 @@ spec:
     continueOnError: true
     errorKey: createRestActionsError
     dependsOn: 
-      name: listNotebooksAndRestActions
-      iterator: .listNotebooksAndRestActions.restActionsToCreate
+      name: listPodsAndRestActions
+      iterator: .listPodsAndRestActions.restActionsToCreate
     path: ${ "/apis/templates.krateo.io/v1/namespaces/" + (.namespace ) + "/restactions/" }
     verb: POST
     headers:
@@ -319,12 +322,12 @@ spec:
           "spec": {
             "api": [
               {
-                "name": "notebook",
-                "path": "/compute/" + .name + "/info",
+                "name": "text",
+                "path": "/api/v1/namespaces/" + .namespace + "/pods/" + .name + "/log?tailLines=100",
                 "verb": "GET",
                 "endpointRef": {
-                  "name": "finops-database-handler-endpoint",
-                  "namespace": "{{ .Values.global.krateoNamespace }}"
+                  "name": "{{ include "proxylog.fullname" . }}-endpoint",
+                  "namespace": "{{ .Release.Namespace }}"
                 }
               }
             ]
@@ -335,7 +338,7 @@ spec:
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: admin-page-finops-panel-column-row-1-notebooks-table
+  name: admin-page-krateo-column-panel-row-2-logs-table
   namespace: {{ .Release.Namespace }}
 spec:
   api:
@@ -343,14 +346,14 @@ spec:
     path: "/api/v1/namespaces"
     filter: "[.namespaces.items[] | .metadata.name]"
     continueOnError: true
-  - name: notebooks
+  - name: pods
     dependsOn:
       iterator: .[]
       name: namespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+    path: ${ "/api/v1/namespaces/" + (.) + "/pods"}
     continueOnError: true
   - name: createAll
-    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-create&namespace={{ .Release.Namespace }}"
+    path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-krateo-panel-row-2-list-pods-and-create&namespace={{ .Release.Namespace }}"
     verb: GET
     endpointRef:
       name: snowplow-endpoint
@@ -358,18 +361,18 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: createAll
+    errorKey: createAllError
     exportJwt: true
     dependsOn: 
       name: namespaces
   filter: >
     {
-      notebooks: (
+      pods: (
         (
-          if (.notebooks | type) == "array" then
-            [.notebooks[]?.items[]?]
-          elif (.notebooks | type) == "object" then
-            [.notebooks.items[]?]
+          if (.pods | type) == "array" then
+            [.pods[]?.items[]?]
+          elif (.pods | type) == "object" then
+            [.pods.items[]?]
           else
             []
           end
@@ -377,51 +380,52 @@ spec:
       ),
       list: (
         (
-          if (.notebooks | type) == "array" then
-            [.notebooks[]?.items[]?]
-          elif (.notebooks | type) == "object" then
-            [.notebooks.items[]?]
+          if (.pods | type) == "array" then
+            [.pods[]?.items[]?]
+          elif (.pods | type) == "object" then
+            [.pods.items[]?]
           else
             []
           end
-        | map({
-            name: .metadata.name,
-            namespace: .metadata.namespace,
-            status: (
-              if (.status.conditions | type) == "array" then
-                ( [.status.conditions[]? | select(.type == "Ready") | "Ready: " + .status ] | first? ) // 
-                ( [.status.conditions[]? | select(.type == "Synced") | "Synced: " + .status] | first? // "Status not available" )
-              else
-                "Status not available"
-              end
-            )
-          })
-        | sort_by(.name)
-        | map([
-            {
-              valueKey: "name",
-              kind: "jsonSchemaType",
-              type: "string",
-              stringValue: .name
-            },
-            {
-              valueKey: "namespace",
-              kind: "jsonSchemaType",
-              type: "string",
-              stringValue: .namespace
-            },
-            {
-              valueKey: "status",
-              kind: "jsonSchemaType",
-              type: "string",
-              stringValue: .status
-            },
-            {
-              valueKey: "view",
-              kind: "widget",
-              resourceRefId: .name
-            }
-          ])
+        | map(
+            [
+              {
+                valueKey: "name",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: .metadata.name
+              },
+              {
+                valueKey: "namespace",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: .metadata.namespace
+              },
+              {
+                valueKey: "status",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: (
+                  if (.status.conditions | type) == "array" then
+                    ( [.status.conditions[]? | select(.type == "Ready") | "Ready: " + .status] | first? // "Status not available" )
+                  else
+                    "Status not available"
+                  end
+                )
+              },
+              {
+                valueKey: "date",
+                kind: "jsonSchemaType",
+                type: "string",
+                stringValue: .metadata.creationTimestamp
+              },
+              {
+                valueKey: "logs",
+                kind: "widget",
+                resourceRefId: .metadata.name
+              }
+            ]
+          )
         )
       )
     }

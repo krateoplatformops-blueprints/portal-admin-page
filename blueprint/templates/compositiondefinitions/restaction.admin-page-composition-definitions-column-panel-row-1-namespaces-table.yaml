@@ -1,0 +1,10 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-composition-definitions-column-panel-row-1-namespaces-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: /api/v1/namespaces
+    continueOnError: true

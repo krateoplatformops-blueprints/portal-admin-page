@@ -1,0 +1,9 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-krateo-column-panel-row-1-status-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: krateo
+    path: "/apis/krateo.io/v1alpha1/namespaces/{{ .Values.global.krateoNamespace }}/krateoplatformops/krateo"

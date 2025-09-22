@@ -1,0 +1,48 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-krateo-column-panel-row-1-status-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-krateo-column-panel-row-1-status-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources: []  
+    prefix: admin-page-status
+    columns:
+    - title: Name
+      valueKey: releaseName
+    - title: Namespace
+      valueKey: namespace
+    - title: App Version
+      valueKey: appVersion
+    - title: Chart Version
+      valueKey: chartVersion
+    - title: Revision
+      valueKey: revision
+    - title: Status
+      valueKey: status
+    - title: Last Update
+      valueKey: updated
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+  - forPath: data
+    expression: |
+      ${
+        .krateo.status.releaseList
+        | sort_by(.updated) | reverse
+        | map(
+            [
+              {valueKey: "releaseName", kind: "jsonSchemaType", type: "string", stringValue: .releaseName},
+              {valueKey: "namespace",   kind: "jsonSchemaType", type: "string", stringValue: .namespace},
+              {valueKey: "appVersion",  kind: "jsonSchemaType", type: "string", stringValue: (.appVersion // "")},
+              {valueKey: "chartName",   kind: "jsonSchemaType", type: "string", stringValue: .chartName},
+              {valueKey: "chartVersion",kind: "jsonSchemaType", type: "string", stringValue: .chartVersion},
+              {valueKey: "revision",    kind: "jsonSchemaType", type: "integer", numberValue: .revision},
+              {valueKey: "status",      kind: "jsonSchemaType", type: "string", stringValue: .status},
+              {valueKey: "updated",     kind: "jsonSchemaType", type: "string", stringValue: .updated}
+            ]
+        )
+      }
