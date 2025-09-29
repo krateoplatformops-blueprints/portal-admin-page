@@ -1,0 +1,29 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-column-panel-row-2-permissions
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    allowedResources:
+    - rows
+    - buttons
+    items:
+      - resourceRefId: filter
+        alignment: right
+      # - resourceRefId: create
+      #   alignment: right
+  resourcesRefs:
+    items:
+    - id:  filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-filter-button-permissions
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET
+    - id: create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-panel-row-3-create-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET

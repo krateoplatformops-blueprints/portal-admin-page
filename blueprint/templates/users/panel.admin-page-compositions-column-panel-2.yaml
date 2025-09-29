@@ -1,0 +1,26 @@
+kind: Panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-column-panel-2
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    actions: {}
+    title: Group Permissions Details
+    items:
+      - resourceRefId: row-2-buttons
+      - resourceRefId: row-2-table
+  resourcesRefs:
+    items:
+    - id:  row-2-buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-column-panel-row-2-permissions
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: row-2-table
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-column-panel-row-2-permissions-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

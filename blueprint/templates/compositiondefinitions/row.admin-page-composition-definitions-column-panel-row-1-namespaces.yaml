@@ -1,0 +1,21 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-column-panel-row-1-namespaces
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    allowedResources:
+    - buttons
+    - rows
+    items:
+      - resourceRefId: create
+        alignment: right
+  resourcesRefs:
+    items:
+    - id:  create
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-composition-definitions-create-namespace-button
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET

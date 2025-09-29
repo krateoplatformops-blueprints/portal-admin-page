@@ -1,0 +1,25 @@
+kind: Column
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-finops-panel-column
+spec:
+  widgetData:
+    allowedResources:
+    - rows
+    items:
+      - resourceRefId: buttons
+      - resourceRefId: notebooks
+  resourcesRefs:
+    items:
+    - id:  buttons
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-column-row-1-notebooks
+      namespace: {{ .Release.Namespace }}
+      resource: rows
+      verb: GET
+    - id: notebooks
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-finops-panel-column-row-1-notebooks-table
+      namespace: {{ .Release.Namespace }}
+      resource: tables
+      verb: GET

@@ -1,0 +1,21 @@
+kind: Row
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-users-column-panel-row-1-users
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    allowedResources:
+    - rows
+    - buttons
+    items:
+      - resourceRefId: filter
+        alignment: right
+  resourcesRefs:
+    items:
+    - id:  filter
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-users-filter-button-users
+      namespace: {{ .Release.Namespace }}
+      resource: buttons
+      verb: GET

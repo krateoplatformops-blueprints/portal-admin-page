@@ -1,0 +1,135 @@
+kind: Form
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-composition-definitions-create-composition-definition-ui-button-form
+spec:
+  widgetData:
+    submitActionId: compositiondefinition
+    stringSchema: |
+      {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": true,
+        "properties": {
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "namespace"
+            ]
+          },
+          "blueprint": {
+            "additionalProperties": false,
+            "description": "Blueprint properties",
+            "properties": {
+              "hasPage": {
+                "description": "Blueprints dedicated page (Composition)",
+                "default": true,
+                "title": "hasPage",
+                "type": "boolean"
+              },
+              "version": {
+                "description": "Blueprints version",
+                "title": "version",
+                "type": "string"
+              },
+              "url": {
+                "description": "Blueprints url",
+                "title": "url",
+                "type": "string",
+                "default": "https://marketplace.krateo.io"
+              }
+            },
+            "required": [
+              "version",
+              "hasPage",
+              "url"
+            ],
+            "title": "blueprint",
+            "type": "object"
+          },
+          "form": {
+            "additionalProperties": false,
+            "description": "Blueprint form properties",
+            "properties": {
+              "alphabeticalOrder": {
+                "default": true,
+                "description": "Blueprint form keys order",
+                "title": "alphabeticalOrder",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "alphabeticalOrder"
+            ],
+            "title": "form",
+            "type": "object"
+          },
+          "panel": {
+            "additionalProperties": false,
+            "description": "Blueprint panel properties",
+            "properties": {
+              "icon": {
+                "additionalProperties": false,
+                "description": "Blueprint panel icon properties",
+                "properties": {
+                  "name": {
+                    "default": "fa-cubes",
+                    "description": "Bleprint panel icon name",
+                    "title": "name",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ],
+                "title": "icon",
+                "type": "object"
+              },
+              "title": {
+                "description": "Blueprint panel title",
+                "title": "title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "title"
+            ],
+            "title": "panel",
+            "type": "object"
+          }
+        },
+        "required": [
+          "blueprint",
+          "form",
+          "panel"
+        ],
+        "type": "object"
+      }
+    actions:
+      rest:
+      - id: compositiondefinition
+        resourceRefId: resource-ref-1
+        type: rest
+        payloadToOverride:
+        - name: spec
+          value: ${ .json }
+        - name: metadata.name
+          value: ${ .json.metadata.name }
+        - name: metadata.namespace
+          value: ${ .json.metadata.namespace }
+        headers:
+        - "content-type: application/json"
+  resourcesRefs:
+    items:  
+    - id: resource-ref-1
+      apiVersion: composition.krateo.io/v1-0-1
+      resource: portalblueprintpages
+      verb: POST

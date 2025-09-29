@@ -1,0 +1,17 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-compositions-column-panel-row-1-providers-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: namespaces
+    path: "/api/v1/namespaces"
+    filter: "[.namespaces.items[] | .metadata.name]"
+    continueOnError: true
+  - name: providers
+    dependsOn:
+      iterator: .[]
+      name: namespaces
+    path: ${ "/apis/apps/v1/namespaces/" + (.) + "/deployments"}
+    continueOnError: true

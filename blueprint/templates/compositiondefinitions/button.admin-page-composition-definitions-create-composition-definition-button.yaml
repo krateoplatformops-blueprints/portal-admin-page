@@ -1,10 +1,10 @@
 kind: Button
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-users-panel-row-3-create-button
+  name: admin-page-composition-definitions-create-composition-definition-button
 spec:
   widgetData:
-    label: Create
+    label: Install
     size: middle
     icon: fa-solid fa-plus
     type: primary
@@ -14,13 +14,13 @@ spec:
         - id: open-drawer-action
           resourceRefId: create
           type: openDrawer
-          title: Create
-          size: default
+          title: Install blueprint
+          size: large
   resourcesRefs:
     items:
     - id: create
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-users-column-panel-c
+      name: admin-page-composition-definitions-create-composition-definition-button-form
       namespace: {{ .Release.Namespace }}
-      resource: columns
+      resource: forms
       verb: GET

@@ -17,7 +17,7 @@ type: application
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: CHART_VERSION
 
-appVersion: APP_VERSION
+appVersion: 0.1.0
 
 home: https://krateo.io
 icon: "https://github.com/krateoplatformops/krateo/blob/main/docs/media/logo.svg"
@@ -26,4 +26,4 @@ keywords:
 sources:
   - https://github.com/krateoplatformops-blueprints/portal-admin-page
 annotations:
-  krateoSupportedVersion: ">= 2.5.1"
+  krateoSupportedVersion: ">= 2.6.0"

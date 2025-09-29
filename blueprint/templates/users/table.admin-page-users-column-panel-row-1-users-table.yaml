@@ -1,0 +1,59 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: admin-page-users-column-panel-row-1-users-table
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: admin-page-users-column-panel-row-1-users-table
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources: []  
+    prefix: admin-page-users
+    columns:
+    - title: Name
+      valueKey: name
+    - title: Namespace
+      valueKey: namespace
+    - title: Groups
+      valueKey: groups
+    data: []
+    pageSize: 10
+  widgetDataTemplate:
+  - forPath: data
+    expression: |
+      ${
+        (
+          (
+            if (.basic | type) == "array" then
+              [.basic[]?.items[]?]
+            elif (.basic | type) == "object" then
+              [.basic.items[]?]
+            else
+              []
+            end
+          | map(
+              [
+                {
+                  valueKey: "name",
+                  kind: "jsonSchemaType",
+                  type: "string",
+                  stringValue: .metadata.name
+                },
+                {
+                  valueKey: "namespace",
+                  kind: "jsonSchemaType",
+                  type: "string",
+                  stringValue: .metadata.namespace
+                },
+                {
+                  valueKey: "groups",
+                  kind: "jsonSchemaType",
+                  type: "array",
+                  arrayValue: (.spec.groups // [])
+                }
+              ]
+            )
+          )
+        )
+      }
