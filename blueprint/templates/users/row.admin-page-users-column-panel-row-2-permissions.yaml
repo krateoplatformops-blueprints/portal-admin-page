@@ -11,8 +11,8 @@ spec:
     items:
       - resourceRefId: filter
         alignment: right
-      - resourceRefId: create
-        alignment: right
+      # - resourceRefId: create
+      #   alignment: right
   resourcesRefs:
     items:
     - id:  filter

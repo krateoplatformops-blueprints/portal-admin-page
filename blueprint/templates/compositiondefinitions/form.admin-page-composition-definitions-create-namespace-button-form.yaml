@@ -28,14 +28,17 @@ spec:
         }
     actions:
       rest:
-        - id: namespace
-          resourceRefId: resource-ref-1
-          type: rest
-          payloadToOverride:
-          - name: metadata.name
-            value: ${ metadata.name }
-          headers:
-          - "content-type: application/json"
+      - id: namespace
+        resourceRefId: resource-ref-1
+        type: rest
+        payloadToOverride:
+        - name: metadata.name
+          value: ${ .json.metadata.name }
+        - name: metadata.namespace
+          value: ${ null }
+        successMessage: "Successfully created namespace ${ .json.metadata.name }"
+        headers:
+        - "content-type: application/json"
   resourcesRefs:
     items:  
     - id: resource-ref-1

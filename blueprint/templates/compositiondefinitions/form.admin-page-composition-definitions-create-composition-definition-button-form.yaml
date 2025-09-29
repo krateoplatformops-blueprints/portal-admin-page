@@ -86,17 +86,26 @@ spec:
       }
     actions:
       rest:
-        - id: compositiondefinition
-          resourceRefId: resource-ref-1
-          type: rest
-          payloadKey: spec
-          payloadToOverride:
-          - name: metadata.name
-            value: ${ metadata.name }
-          - name: metadata.namespace
-            value: ${ metadata.namespace }
-          headers:
-          - "content-type: application/json"
+      - id: compositiondefinition
+        resourceRefId: resource-ref-1
+        type: rest
+        payloadToOverride:
+        - name: spec.chart.insecureSkipVerifyTLS
+          value: ${ .json.chart.insecureSkipVerifyTLS }
+        - name: spec.chart.repo
+          value: ${ .json.chart.repo }
+        - name: spec.chart.url
+          value: ${ .json.chart.url }
+        - name: spec.chart.version
+          value: ${ .json.chart.version }
+        - name: spec.chart.credentials
+          value: ${ if ((.json.chart.credentials.passwordRef.name? // "") == "" or (.json.chart.credentials.passwordRef.namespace? // "") == "") then null else .json.chart.credentials end }
+        - name: metadata.name
+          value: ${ .json.metadata.name }
+        - name: metadata.namespace
+          value: ${ .json.metadata.namespace }
+        headers:
+        - "content-type: application/json"
   resourcesRefs:
     items:  
     - id: resource-ref-1

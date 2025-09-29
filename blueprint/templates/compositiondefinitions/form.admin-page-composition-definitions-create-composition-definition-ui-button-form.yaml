@@ -115,17 +115,18 @@ spec:
       }
     actions:
       rest:
-        - id: compositiondefinition
-          resourceRefId: resource-ref-1
-          type: rest
-          payloadKey: spec
-          payloadToOverride:
-          - name: metadata.name
-            value: ${ metadata.name }
-          - name: metadata.namespace
-            value: ${ metadata.namespace }
-          headers:
-          - "content-type: application/json"
+      - id: compositiondefinition
+        resourceRefId: resource-ref-1
+        type: rest
+        payloadToOverride:
+        - name: spec
+          value: ${ .json }
+        - name: metadata.name
+          value: ${ .json.metadata.name }
+        - name: metadata.namespace
+          value: ${ .json.metadata.namespace }
+        headers:
+        - "content-type: application/json"
   resourcesRefs:
     items:  
     - id: resource-ref-1
