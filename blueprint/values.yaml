@@ -362,3 +362,20 @@ tolerations: []
 # required: false
 # @schema
 affinity: {}
+
+# @schema
+# type: object
+# required: true
+# @schema
+portalBlueprintPage:
+  # @schema
+  # type: boolean
+  # required: true
+  # default: false
+  # @schema
+  installCompositionDefinition: false
+  # @schema
+  # type: string
+  # required: true
+  # @schema
+  version: "1.0.5"

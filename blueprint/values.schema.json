@@ -84,7 +84,7 @@
           "type": "string"
         },
         "tag": {
-          "default": "",
+          "default": "1.0.0",
           "description": "Overrides the image tag whose default is the chart appVersion.",
           "title": "tag",
           "type": "string"
@@ -215,6 +215,27 @@
     "podSecurityContext": {
       "additionalProperties": false,
       "title": "podSecurityContext",
+      "type": "object"
+    },
+    "portalBlueprintPage": {
+      "additionalProperties": false,
+      "properties": {
+        "installCompositionDefinition": {
+          "default": false,
+          "title": "installCompositionDefinition",
+          "type": "boolean"
+        },
+        "version": {
+          "default": "1.0.5",
+          "title": "version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "installCompositionDefinition",
+        "version"
+      ],
+      "title": "portalBlueprintPage",
       "type": "object"
     },
     "readinessProbe": {
@@ -354,7 +375,8 @@
     "image",
     "service",
     "ingress",
-    "autoscaling"
+    "autoscaling",
+    "portalBlueprintPage"
   ],
   "type": "object"
 }
