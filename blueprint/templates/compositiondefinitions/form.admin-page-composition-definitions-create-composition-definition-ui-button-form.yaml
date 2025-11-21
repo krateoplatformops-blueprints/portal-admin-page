@@ -130,6 +130,6 @@ spec:
   resourcesRefs:
     items:  
     - id: resource-ref-1
-      apiVersion: composition.krateo.io/v1-0-1
+      apiVersion: composition.krateo.io/v{{ .Values.portalBlueprintPage.version | replace "." "-" }}
       resource: portalblueprintpages
       verb: POST

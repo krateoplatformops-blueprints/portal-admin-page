@@ -1,3 +1,4 @@
+{{- if .Values.portalBlueprintPage.installCompositionDefinition -}}
 apiVersion: core.krateo.io/v1alpha1
 kind: CompositionDefinition
 metadata:
@@ -7,4 +8,5 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 1.0.0
+    version: {{ .Values.portalBlueprintPage.version }}
+{{- end -}}
