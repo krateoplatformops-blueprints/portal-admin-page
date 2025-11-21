@@ -17,7 +17,8 @@ Install the Blueprint:
 helm install <name> portal-admin-page \
   --repo https://marketplace.krateo.io \
   --namespace <krateo-namespace> \
-  --version 1.0.0 \
+  --set portalBlueprintPage.installCompositionDefinition=<true|false> \
+  --version 1.0.2
   --wait
 ```
 
