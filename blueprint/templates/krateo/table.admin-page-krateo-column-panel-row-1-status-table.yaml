@@ -31,7 +31,7 @@ spec:
   - forPath: data
     expression: |
       ${
-        .krateo.status.releaseList
+        ( .krateo?.status?.releaseList // [] )
         | sort_by(.updated) | reverse
         | map(
             [
