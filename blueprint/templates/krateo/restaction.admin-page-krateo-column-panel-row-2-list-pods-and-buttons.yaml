@@ -287,7 +287,7 @@ spec:
             "widgetDataTemplate": [
               {
                 "forPath": "markdown",
-                "expression": "${ .text.logs }"
+                "expression": "${ ([range(0; .containers | length) as $i | { \"name\": .containers[$i], \"logs\": .text[$i].logs }]) | map(\"### \" + .name + \"\n\" + .logs ) | join(\"\n\n\") }"
               }
             ],
             "apiRef": {
@@ -322,8 +322,18 @@ spec:
           "spec": {
             "api": [
               {
+                "name": "containers",
+                "path": "/api/v1/namespaces/" + .namespace + "/pods/" + .name,
+                "verb": "GET",
+                "filter": "[ .containers.spec.containers[].name ]"
+              },
+              {
                 "name": "text",
-                "path": "/api/v1/namespaces/" + .namespace + "/pods/" + .name + "/log?tailLines=100",
+                "dependsOn": {
+                  "name": "containers",
+                  "iterator": ".containers"
+                },
+                "path": "${ \"/api/v1/namespaces/" + .namespace + "/pods/" + .name + "/log?tailLines=100&container=\" + .}",
                 "verb": "GET",
                 "endpointRef": {
                   "name": "{{ include "proxylog.fullname" . }}-endpoint",
