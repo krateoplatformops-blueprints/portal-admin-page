@@ -287,7 +287,7 @@ spec:
             "widgetDataTemplate": [
               {
                 "forPath": "markdown",
-                "expression": "${ ([range(0; .containers | length) as $i | { \"name\": .containers[$i], \"logs\": .text[$i].logs }]) | map(\"### \" + .name + \"\n\" + .logs ) | join(\"\n\n\") }"
+                "expression": "${ ((.text | if type == \"array\" then . else [.] end) as $text | [range(0; .containers | length) as $i | {\"name\": .containers[$i], \"logs\": $text[$i].logs } ] ) | map(\"### \" + .name + \"\n\" + .logs) | join(\"\n\n\") }"
               }
             ],
             "apiRef": {
