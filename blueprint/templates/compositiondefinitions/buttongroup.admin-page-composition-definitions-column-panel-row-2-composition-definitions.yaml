@@ -1,20 +1,18 @@
-kind: Row
+kind: ButtonGroup
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-composition-definitions-column-panel-row-2-composition-definitions
+  name: admin-page-composition-definitions-column-panel-row-2-composition-definitions-button-group
   namespace: {{ .Release.Namespace }}
-spec: 
+spec:
   widgetData:
+    alignment: right
+    gap: small
     allowedResources:
-    - buttons
-    - rows
+      - buttons
     items:
       - resourceRefId: filter
-        alignment: right
       - resourceRefId: create
-        alignment: right
       - resourceRefId: create-ui
-        alignment: right
   resourcesRefs:
     items:
     - id:  filter

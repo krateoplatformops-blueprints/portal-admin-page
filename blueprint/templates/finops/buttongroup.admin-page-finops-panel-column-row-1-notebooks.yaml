@@ -1,29 +1,28 @@
-kind: Row
+kind: ButtonGroup
 apiVersion: widgets.templates.krateo.io/v1beta1
 metadata:
-  name: admin-page-compositions-column-panel-row-2-compositions
+  name: admin-page-finops-panel-column-row-1-notebooks-button-group
   namespace: {{ .Release.Namespace }}
 spec: 
   widgetData:
     allowedResources:
     - buttons
-    - rows
+    alignment: right
+    gap: small
     items:
       - resourceRefId: filter
-        alignment: right
       - resourceRefId: create
-        alignment: right
   resourcesRefs:
     items:
-    - id:  filter
+    - id: filter
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-compositions-filter-button-compositions
+      name: admin-page-finops-filter-button
       namespace: {{ .Release.Namespace }}
       resource: buttons
       verb: GET
-    - id:  create
+    - id: create
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-compositions-go-to-templates-button
+      name: admin-page-finops-upload-panel-button
       namespace: {{ .Release.Namespace }}
       resource: buttons
       verb: GET

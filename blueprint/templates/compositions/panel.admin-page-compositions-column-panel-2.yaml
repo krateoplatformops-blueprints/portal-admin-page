@@ -14,9 +14,9 @@ spec:
     items:
     - id:  row-2-buttons
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-compositions-column-panel-row-2-compositions
+      name: admin-page-compositions-column-panel-row-2-compositions-button-group
       namespace: {{ .Release.Namespace }}
-      resource: rows
+      resource: buttongroups
       verb: GET
     - id: row-2-table
       apiVersion: widgets.templates.krateo.io/v1beta1
