@@ -24,4 +24,4 @@ keywords:
 sources:
   - https://github.com/krateoplatformops-blueprints/portal-admin-page
 annotations:
-  krateoSupportedVersion: ">= 2.6.0"
+  krateoSupportedVersion: "3.0.0"

@@ -7,26 +7,26 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - name: getNamespaces
-    path: "/api/v1/namespaces"
-    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
-    continueOnError: true
-    errorKey: getNamespacesError
   - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=finops.krateo.io&version=v1&namespace=*&resource=notebooks&limit=5000"
+    verb: GET 
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    exportJwt: true
+    errorKey: getNotebooksError
+    filter: "[ .getNotebooks.items[] | {name: .name, namespace: .namespace}]"
   - name: getButtons
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=widgets.templates.krateo.io&version=v1beta1&namespace=*&resource=buttons&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getButtonsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/buttons" }
-    filter: "(.getButtons.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getButtons.items[] | {name: .name, namespace: .namespace}]"
   filter: >
     (.getButtons // []) as $b
     | (.getNotebooks // []) as $p
@@ -58,26 +58,26 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - name: getNamespaces
-    path: "/api/v1/namespaces"
-    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
-    continueOnError: true
-    errorKey: getNamespacesError
   - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=finops.krateo.io&version=v1&namespace=*&resource=notebooks&limit=5000"
+    verb: GET 
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    exportJwt: true
+    errorKey: getNotebooksError
+    filter: "[ .getNotebooks.items[] | {name: .name, namespace: .namespace}]"
   - name: getParagraphs
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=widgets.templates.krateo.io&version=v1beta1&namespace=*&resource=paragraphs&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getParagraphsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/markdowns" }
-    filter: "(.getParagraphs.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getParagraphs.items[] | {name: .name, namespace: .namespace}]"
   filter: >
     (.getParagraphs // []) as $b
     | (.getNotebooks // []) as $p
@@ -109,26 +109,26 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - name: getNamespaces
-    path: "/api/v1/namespaces"
-    filter: "(.getNamespaces.items? // []) | map(.metadata.name)"
-    continueOnError: true
-    errorKey: getNamespacesError
   - name: getNotebooks
-    dependsOn:
-      iterator: .[]
-      name: getNamespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=finops.krateo.io&version=v1&namespace=*&resource=notebooks&limit=5000"
+    verb: GET 
     continueOnError: true
-    filter: "(.getNotebooks.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    exportJwt: true
+    errorKey: getNotebooksError
+    filter: "[ .getNotebooks.items[] | {name: .name, namespace: .namespace}]"
   - name: getRestActions
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=templates.krateo.io&version=v1&namespace=*&resource=restactions&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getRestActionsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/templates.krateo.io/v1/namespaces/" + (.) + "/restactions" }
-    filter: "(.getRestActions.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getRestActions.items[] | {name: .name, namespace: .namespace}]"
   filter: >
     (.getRestActions // []) as $b
     | (.getNotebooks // []) as $p
@@ -339,15 +339,16 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - name: namespaces
-    path: "/api/v1/namespaces"
-    filter: "[.namespaces.items[] | .metadata.name]"
-    continueOnError: true
   - name: notebooks
-    dependsOn:
-      iterator: .[]
-      name: namespaces
-    path: ${ "/apis/finops.krateo.io/v1/namespaces/" + (.) + "/notebooks"}
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=finops.krateo.io&version=v1&namespace=*&resource=notebooks&limit=5000&raw=true"
+    verb: GET 
+    continueOnError: true
+    exportJwt: true
+    errorKey: notebooksError
+    filter: "[ .notebooks.items[] | .raw ]"
     continueOnError: true
   - name: createAll
     path: "/call?apiVersion=templates.krateo.io/v1&resource=restactions&name=admin-page-finops-panel-row-1-list-notebooks-and-create&namespace={{ .Release.Namespace }}"
@@ -358,32 +359,16 @@ spec:
     headers:
     - 'Accept: application/json'
     continueOnError: true
-    errorKey: createAll
+    errorKey: createAllError
     exportJwt: true
     dependsOn: 
-      name: namespaces
+      name: notebooks
   filter: >
     {
-      notebooks: (
-        (
-          if (.notebooks | type) == "array" then
-            [.notebooks[]?.items[]?]
-          elif (.notebooks | type) == "object" then
-            [.notebooks.items[]?]
-          else
-            []
-          end
-        )
-      ),
+      notebooks: .notebooks,
       list: (
         (
-          if (.notebooks | type) == "array" then
-            [.notebooks[]?.items[]?]
-          elif (.notebooks | type) == "object" then
-            [.notebooks.items[]?]
-          else
-            []
-          end
+        .notebooks
         | map({
             name: .metadata.name,
             namespace: .metadata.namespace,

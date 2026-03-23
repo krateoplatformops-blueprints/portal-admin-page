@@ -5,13 +5,14 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   api:
-  - filter: '[.namespaces.items[] | .metadata.name]'
-    name: namespaces
-    path: /api/v1/namespaces
-    continueOnError: true
   - name: allCompositionDefinitions
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=core.krateo.io&resource=compositiondefinitions&limit=5000&namespace=*&raw=true"
+    verb: GET 
     continueOnError: true
-    dependsOn:
-      iterator: .[]
-      name: namespaces
-    path: ${ "/apis/core.krateo.io/v1alpha1/namespaces/" + (.) + "/compositiondefinitions"}
+    exportJwt: true
+    errorKey: allCompositionDefinitionsError
+    filter: |
+      [ .allCompositionDefinitions | .items[] | .raw ]
