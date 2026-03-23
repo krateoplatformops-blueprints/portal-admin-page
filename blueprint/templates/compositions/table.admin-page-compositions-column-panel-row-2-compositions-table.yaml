@@ -26,15 +26,7 @@ spec:
       expression: |
         ${
            (
-            (
-              if (.allCompositions | type) == "array" then
-                [.allCompositions[]?.items[]?]
-              elif (.allCompositions | type) == "object" then
-                [.allCompositions.items[]?]
-              else
-                []
-              end
-            )
+            .allCompositions
             | map(
                 [
                   {

@@ -21,13 +21,15 @@ spec:
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
     filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getButtons
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=widgets.templates.krateo.io&version=v1beta1&namespace=*&resource=buttons&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getButtonsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/buttons" }
-    filter: "(.getButtons.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getButtons.items[] | {name: .name, namespace: .namespace} ]"
   filter: >
     (.getButtons // []) as $b
     | (.getPods // []) as $p
@@ -73,13 +75,15 @@ spec:
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
     filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getParagraphs
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=widgets.templates.krateo.io&version=v1beta1&namespace=*&resource=paragraphs&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getParagraphsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.) + "/markdowns" }
-    filter: "(.getParagraphs.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getParagraphs.items[] | {name: .name, namespace: .namespace}]"
   filter: >
     (.getParagraphs // []) as $b
     | (.getPods // []) as $p
@@ -125,13 +129,15 @@ spec:
     path: ${ "/api/v1/namespaces/" + (.) + "/pods" }
     filter: "(.getPods.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
   - name: getRestActions
+    endpointRef:
+      name: resources-presenter-endpoint
+      namespace: krateo-system
+    path: "/resources?group=templates.krateo.io&version=v1&namespace=*&resource=restactions&limit=5000"
+    verb: GET 
     continueOnError: true
+    exportJwt: true
     errorKey: getRestActionsError
-    dependsOn: 
-      name: getNamespaces
-      iterator: .getNamespaces
-    path: ${ "/apis/templates.krateo.io/v1/namespaces/" + (.) + "/restactions" }
-    filter: "(.getRestActions.items? // []) | map({name: .metadata.name, namespace: .metadata.namespace})"
+    filter: "[ .getRestActions.items[] | {name: .name, namespace: .namespace}]"
   filter: >
     (.getRestActions // []) as $b
     | (.getPods // []) as $p

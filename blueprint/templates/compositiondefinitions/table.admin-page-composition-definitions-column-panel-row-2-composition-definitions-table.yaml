@@ -27,13 +27,7 @@ spec:
         ${
           (
             (
-              if (.allCompositionDefinitions | type) == "array" then
-                [.allCompositionDefinitions[]?.items[]?]
-              elif (.allCompositionDefinitions | type) == "object" then
-                [.allCompositionDefinitions.items[]?]
-              else
-                []
-              end
+            .allCompositionDefinitions
             | map({
                 key: .metadata.uid,
                 name: .metadata.name,
