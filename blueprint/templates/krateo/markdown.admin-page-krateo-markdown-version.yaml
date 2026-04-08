@@ -1,0 +1,15 @@
+kind: Markdown
+apiVersion: widgets.templates.krateo.io/v1beta1
+metadata:
+  name: admin-page-krateo-markdown-version
+  namespace: {{ .Release.Namespace }}
+spec: 
+  widgetData:
+    markdown: ""
+  widgetDataTemplate:
+  - forPath: markdown
+    expression: |
+      ${ "**Krateo Version**: " + ( .krateoVersion? // "unknown" ) }
+  apiRef:
+    name: admin-page-krateo-markdown-version
+    namespace: {{ .Release.Namespace }}
