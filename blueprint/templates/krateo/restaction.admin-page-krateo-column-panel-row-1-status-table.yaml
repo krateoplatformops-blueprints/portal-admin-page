@@ -8,4 +8,4 @@ spec:
   - name: krateo
     path: "/apis/krateo.io/v1/namespaces/{{ .Values.global.krateoNamespace }}/installations/krateoctl"
     filter: >
-      [ .krateo.spec.spec.steps[] | select(.type == "chart") | {chartName: .with.repo, releaseName: (.with.releaseName // ""), chartVersion: .with.version, url: .with.url} ]
+      [ .krateo.spec.spec.steps[] | select(.type == "chart") | {chartName: .with.repo, releaseName: (.with.releaseName // .with.repo), chartVersion: .with.version, url: .with.url} ]
