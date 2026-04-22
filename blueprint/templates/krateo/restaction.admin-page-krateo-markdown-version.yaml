@@ -1,0 +1,11 @@
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: admin-page-krateo-markdown-version
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+  - name: krateoVersion
+    path: "/apis/krateo.io/v1/namespaces/{{ .Values.global.krateoNamespace }}/installations/krateoctl"
+    filter: >
+      .krateoVersion.spec.spec.installationVersion

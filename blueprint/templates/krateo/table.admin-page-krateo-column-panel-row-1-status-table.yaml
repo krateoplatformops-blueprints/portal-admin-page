@@ -11,38 +11,27 @@ spec:
     allowedResources: []  
     prefix: admin-page-status
     columns:
-    - title: Name
+    - title: Release Name
       valueKey: releaseName
-    - title: Namespace
-      valueKey: namespace
-    - title: App Version
-      valueKey: appVersion
+    - title: Chart Name
+      valueKey: chartName
     - title: Chart Version
       valueKey: chartVersion
-    - title: Revision
-      valueKey: revision
-    - title: Status
-      valueKey: status
-    - title: Last Update
-      valueKey: updated
+    - title: URL
+      valueKey: url
     data: []
     pageSize: 10
   widgetDataTemplate:
   - forPath: data
     expression: |
       ${
-        ( .krateo?.status?.releaseList // [] )
-        | sort_by(.updated) | reverse
+        ( .krateo? // [] )
         | map(
             [
               {valueKey: "releaseName", kind: "jsonSchemaType", type: "string", stringValue: .releaseName},
-              {valueKey: "namespace",   kind: "jsonSchemaType", type: "string", stringValue: .namespace},
-              {valueKey: "appVersion",  kind: "jsonSchemaType", type: "string", stringValue: (.appVersion // "")},
               {valueKey: "chartName",   kind: "jsonSchemaType", type: "string", stringValue: .chartName},
               {valueKey: "chartVersion",kind: "jsonSchemaType", type: "string", stringValue: .chartVersion},
-              {valueKey: "revision",    kind: "jsonSchemaType", type: "integer", numberValue: .revision},
-              {valueKey: "status",      kind: "jsonSchemaType", type: "string", stringValue: .status},
-              {valueKey: "updated",     kind: "jsonSchemaType", type: "string", stringValue: .updated}
+              {valueKey: "url",      kind: "jsonSchemaType", type: "string", stringValue: .url}
             ]
         )
       }

@@ -7,11 +7,20 @@ spec:
   widgetData:
     allowedResources:
     - buttons
+    - markdowns
     items:
+      - resourceRefId: version
+        alignment: left
       - resourceRefId: filter
         alignment: right
   resourcesRefs:
     items:
+    - id: version
+      apiVersion: widgets.templates.krateo.io/v1beta1
+      name: admin-page-krateo-markdown-version
+      namespace: {{ .Release.Namespace }}
+      resource: markdowns
+      verb: GET
     - id: filter
       apiVersion: widgets.templates.krateo.io/v1beta1
       name: admin-page-krateo-filter-button-charts
