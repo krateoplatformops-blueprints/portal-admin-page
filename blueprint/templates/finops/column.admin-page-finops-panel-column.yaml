@@ -13,9 +13,9 @@ spec:
     items:
     - id:  buttons
       apiVersion: widgets.templates.krateo.io/v1beta1
-      name: admin-page-finops-panel-column-row-1-notebooks
+      name: admin-page-finops-panel-column-row-1-notebooks-button-group
       namespace: {{ .Release.Namespace }}
-      resource: rows
+      resource: buttongroups
       verb: GET
     - id: notebooks
       apiVersion: widgets.templates.krateo.io/v1beta1

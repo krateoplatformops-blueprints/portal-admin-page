@@ -205,62 +205,6 @@ spec:
     errorKey: listPodsAndRestActionsError
     exportJwt: true
     filter: ".listPodsAndRestActions.status? // {}"
-  - name: createButton
-    continueOnError: true
-    errorKey: createButtonError
-    dependsOn: 
-      name: listPodsAndButtons
-      iterator: .listPodsAndButtons.buttonsToCreate
-    path: ${ "/apis/widgets.templates.krateo.io/v1beta1/namespaces/" + (.namespace ) + "/buttons/" }
-    verb: POST
-    headers:
-      - "Content-Type: application/json"
-    payload: |
-      ${
-        {
-          "kind": "Button",
-          "apiVersion": "widgets.templates.krateo.io/v1beta1",
-          "metadata": {
-            "name": .name,
-            "namespace": .namespace,
-            "labels": {
-              "krateo.io/portal": "button-for-table"
-            }
-          },
-          "spec": {
-            "widgetData": {
-              "label": "Logs",
-              "icon": "fa-solid fa-list",
-              "size": "middle",
-              "type": "primary",
-              "clickActionId": "open",
-              "actions": {
-                "openModal": [
-                  {
-                    "id": "open",
-                    "resourceRefId": "paragraph",
-                    "type": "openModal",
-                    "title": "Logs for: " + .name,
-                    "size": "large"
-                  }
-                ]
-              }
-            },
-            "resourcesRefs": {
-              "items": [
-                {
-                  "id": "paragraph",
-                  "apiVersion": "widgets.templates.krateo.io/v1beta1",
-                  "resource": "markdowns",
-                  "name": .name,
-                  "namespace": .namespace,
-                  "verb": "GET"
-                }
-              ]
-            }
-          }
-        }
-      }
   - name: createParagraphs
     continueOnError: true
     errorKey: createParagraphError
@@ -434,11 +378,6 @@ spec:
                 kind: "jsonSchemaType",
                 type: "string",
                 stringValue: .metadata.creationTimestamp
-              },
-              {
-                valueKey: "logs",
-                kind: "widget",
-                resourceRefId: .metadata.name
               }
             ]
           )
