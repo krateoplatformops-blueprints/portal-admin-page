@@ -14,7 +14,7 @@ spec:
           type: openModal
           size: large
           resourceRefId: ${ .json.name }
-          title: Logs
+          title: ${"Logs for " + .json.name }
     allowedResources:
     - buttons
     prefix: admin-page-logs
